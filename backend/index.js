@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(session({
-    secret: 'keyboard cat',
+    secret:process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: false,
   }));
