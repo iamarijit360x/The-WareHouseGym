@@ -1,0 +1,8 @@
+.background-container {
+    background-color: rgb(117, 111, 39);
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh; /* Set minimum height to cover the entire viewport */
+   
+  }
+  
