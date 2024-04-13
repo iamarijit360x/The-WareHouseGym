@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const { login, signup, logout } = require('../controllers/authController');
+const { login, signup, signout } = require('../controllers/authController');
 
 
 router.post('/login', login);
@@ -17,6 +17,6 @@ router.get('/profile', (req, res) => {
   res.send('Sucesss');
 });
 
-router.get('/logout',logout);
+router.get('/signout',signout);
 
 module.exports = router;

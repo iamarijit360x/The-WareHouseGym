@@ -1,6 +1,7 @@
 // app.js
 const express = require('express');
 const app = express();
+const cors=require('cors')
 const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
@@ -15,6 +16,8 @@ mongoose.connect( process.env.DB_URL,{ useNewUrlParser: true, useUnifiedTopology
 
 // Express middleware
 app.use(express.json())
+app.use(cors());
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));

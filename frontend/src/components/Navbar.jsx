@@ -1,8 +1,29 @@
 import React from 'react';
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import logo from "../assets/gymlogo.png";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { setAuthState } from '../utils/store/AuthSlice';
+import axios from 'axios';
 
 export default function MyNavbar() {
+  const authState=useSelector(state=>state.auth.authState)
+  const dispatch=useDispatch()
+  const navigate=useNavigate()
+
+
+  const handleLogout = async () => {
+    try {
+
+      const response = await axios.get('http://localhost:3000/signout'); 
+      dispatch(setAuthState(false))
+      navigate('/signin')
+      console.log(response.data);
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
+
   return (
     <Navbar sticky="top" bg="body-tertiary" className="px-4" expand="sm" data-bs-theme="dark" position-fixed>
       <Container>
@@ -24,7 +45,7 @@ export default function MyNavbar() {
             <Nav.Link href="#">Home</Nav.Link>
             <Nav.Link href="#">Price</Nav.Link>
             <Nav.Link href="#">Contact Us</Nav.Link>
-            <Nav.Link href="#">Hello, Sign In</Nav.Link>
+            {authState?<Button onClick={()=>handleLogout()}>Sign Out</Button>:<Nav.Link href="/signin">Hello, Sign In</Nav.Link>}
           </Nav>
         </Navbar.Collapse>
       </Container>

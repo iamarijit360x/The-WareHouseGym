@@ -1,0 +1,48 @@
+.footer {
+    background-color: #343a40;
+    color: #fff;
+    padding-top:10px;
+   
+}
+ .gym-logo{
+    width:200px;
+    aspect-ratio: 1;
+ }
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+}
+
+
+.footer-info p {
+    margin-bottom: 5px;
+}
+
+.footer-social {
+    text-align: center;
+}
+
+.social-icons a {
+    color: #fff;
+    font-size: 24px;
+    margin: 0 10px;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.footer-bottom p {
+    margin-bottom: 0;
+}
+.copyright{
+    background-color: rgb(35, 7, 7);
+}

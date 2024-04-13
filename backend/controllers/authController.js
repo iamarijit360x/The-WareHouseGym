@@ -7,13 +7,15 @@ exports.signup=async (req,res)=>{
    try{ 
         const exists= await User.findOne({email:email})
         if(exists){
-            return res.send("User Already Exists")
+        return res.json({userExists:"True"})
+           
         }
        
         const newUser=new User({fistname:fistname,lastname:lastname,email:email,password:password})
 
-        await newUser.save();
-        res.redirect("/login")
+        const response=await newUser.save();
+        return res.json({"success":true})
+        
     
         }
     catch (error) {
@@ -23,17 +25,28 @@ exports.signup=async (req,res)=>{
 }
 
 
- exports.login=passport.authenticate('local',{
-    successRedirect:'/profile',
-    failureMessage:'Invalid Credentials'
+exports.login = function(req, res, next) {
+    passport.authenticate('local', function(err, user, info) {
+        if (err) {
+            return res.status(500).json({ success: false, message: 'Internal Server Error' });
+        }
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Invalid Credentials' });
+        }
+        req.logIn(user, function(err) {
+            if (err) {
+                return res.status(500).json({ success: false, message: 'Internal Server Error' });
+            }
+            return res.json({ success: true, message: 'Login successful', user });
+        });
+    })(req, res, next);
+};
 
-    })
 
-exports.logout=(req,res)=>{
+exports.signout=(req,res)=>{
     req.logout((err)=>{
         if(err)
             console.log(err)
-        res.redirect('/login')
-
+        res.end()
     });
 }

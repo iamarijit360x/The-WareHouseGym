@@ -9,7 +9,7 @@ passport.use(new LocalStrategy({usernameField:"email"},
    async (email, password, done) => {
     try {
       const user =  await User.findOne({email:email});
-     console.log(user)
+     
       if (!user) {
         console.log('Invalid usernmae')
 
