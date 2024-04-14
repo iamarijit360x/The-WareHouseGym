@@ -11,8 +11,8 @@ export default function SignUp() {
         confirmPassword: '',
         phoneNumber: '',
         address: '',
-        firstName: '',
-        lastName: ''
+        firstname: '',
+        lastname: ''
     });
 
     const handleChange = (e) => {
@@ -48,21 +48,21 @@ export default function SignUp() {
                     <div className="registration-form">
                         <h2 className="text-center mb-4">Register</h2>
                         <Form onSubmit={handleSubmit}>
-                            <Form.Group className="mb-3" controlId="firstName">
+                            <Form.Group className="mb-3" controlId="firstname">
                                 <Form.Label>First Name</Form.Label>
                                 <Form.Control
                                     type="text"
                                     placeholder="Enter First Name"
-                                    value={formData.firstName}
+                                    value={formData.firstname}
                                     onChange={handleChange}
                                 />
                             </Form.Group>
-                            <Form.Group className="mb-3" controlId="lastName">
+                            <Form.Group className="mb-3" controlId="lastname">
                                 <Form.Label>Last Name</Form.Label>
                                 <Form.Control
                                     type="text"
                                     placeholder="Enter Last Name"
-                                    value={formData.lastName}
+                                    value={formData.lastname}
                                     onChange={handleChange}
                                     required
                                 />

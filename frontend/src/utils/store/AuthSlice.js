@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { act } from "react-dom/test-utils";
 
 const loadState = () => {
   try {
@@ -25,16 +26,19 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     authState: false,
-    token: {},
+    userData: {},
   },
   reducers: {
     setAuthState: (state, action) => {
       state.authState = action.payload;
     },
+    setUserData:(state,action)=>{
+      state.userData=action.payload
+    }
   },
 });
 
-export const { setAuthState } = authSlice.actions;
+export const { setAuthState,setUserData } = authSlice.actions;
 
 export default authSlice.reducer;
 

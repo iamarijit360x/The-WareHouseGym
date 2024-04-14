@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Form, Button, InputGroup } from 'react-bootstrap';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { useNavigate, Link } from 'react-router-dom'; 
 import { useDispatch } from 'react-redux';
-import { setAuthState } from '../utils/store/AuthSlice';
+import { setAuthState,setUserData } from '../utils/store/AuthSlice';
 
 function SignInPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [error,setError]=useState(null)
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -18,10 +19,12 @@ function SignInPage() {
       console.log(response.data)
       if (response.data.success) {
         dispatch(setAuthState(true));
+        dispatch(setUserData(response.data.user))
         navigate('/dashboard');
       }
     } catch (error) {
       console.error(error.response.data);
+      setError(error)
     }
   };
 
@@ -33,6 +36,8 @@ function SignInPage() {
             <Card.Body className='p-4'>
               <h2 className="fw-bold mb-3 text-center">Sign in</h2>
               <p className="text-muted mb-4 text-center">Please enter your login and password!</p>
+              
+              
               <Form className="mb-4" onSubmit={handleSignIn}>
                 <Form.Group className="mb-3" controlId="email">
                   <Form.Control type="email" placeholder="Enter email" size="md" className="bg-dark text-light" value={email} onChange={(e) => setEmail(e.target.value)} required />
@@ -50,6 +55,11 @@ function SignInPage() {
                 </Button>
               </Form>
               <hr className="my-3" />
+
+             
+                  {error && <p className="text-danger mb-4 text-center">Invalid Email Or Pasword</p>}
+   
+              
               <Button size='md' className="mb-2 w-100" style={{ backgroundColor: '#dd4b39' }}>
                 <i className="fab fa-google me-2"></i>
                 Sign in with Google

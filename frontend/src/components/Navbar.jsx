@@ -3,11 +3,13 @@ import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import logo from "../assets/gymlogo.png";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setAuthState } from '../utils/store/AuthSlice';
+import { setAuthState,setUserData } from '../utils/store/AuthSlice';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function MyNavbar() {
   const authState=useSelector(state=>state.auth.authState)
+  const name=useSelector(state=>state.auth.userData.firstname)
   const dispatch=useDispatch()
   const navigate=useNavigate()
 
@@ -17,6 +19,7 @@ export default function MyNavbar() {
 
       const response = await axios.get('http://localhost:3000/signout'); 
       dispatch(setAuthState(false))
+      dispatch(setUserData({}))
       navigate('/signin')
       console.log(response.data);
     } catch (error) {
@@ -27,7 +30,7 @@ export default function MyNavbar() {
   return (
     <Navbar sticky="top" bg="body-tertiary" className="px-4" expand="sm" data-bs-theme="dark" position-fixed>
       <Container>
-        <Navbar.Brand href="#home" className="d-flex align-items-center">
+        <Navbar.Brand href="/" className="d-flex align-items-center">
           <img
             alt=""
             src={logo}
@@ -42,10 +45,11 @@ export default function MyNavbar() {
 
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="flex-grow-1 justify-content-around">
-            <Nav.Link href="#">Home</Nav.Link>
             <Nav.Link href="#">Price</Nav.Link>
             <Nav.Link href="#">Contact Us</Nav.Link>
-            {authState?<Button onClick={()=>handleLogout()}>Sign Out</Button>:<Nav.Link href="/signin">Hello, Sign In</Nav.Link>}
+            {authState?<Nav.Link href="/dashboard"><span>{name}<i class="fa-regular fa-user"></i></span></Nav.Link>:null}
+
+            {authState?<Nav.Link onClick={()=>handleLogout()}>Sign Out</Nav.Link>:<Nav.Link href="/signin">Hello, Sign In</Nav.Link>}
           </Nav>
         </Navbar.Collapse>
       </Container>

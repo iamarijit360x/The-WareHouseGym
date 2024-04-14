@@ -3,7 +3,7 @@ const User=require('../models/UsersModel')
 
 
 exports.signup=async (req,res)=>{
-    const {fistname,lastname,email,password}=req.body
+    const {firstname,lastname,email,password}=req.body
    try{ 
         const exists= await User.findOne({email:email})
         if(exists){
@@ -11,7 +11,7 @@ exports.signup=async (req,res)=>{
            
         }
        
-        const newUser=new User({fistname:fistname,lastname:lastname,email:email,password:password})
+        const newUser=new User({firstname:firstname,lastname:lastname,email:email,password:password})
 
         const response=await newUser.save();
         return res.json({"success":true})
@@ -31,7 +31,7 @@ exports.login = function(req, res, next) {
             return res.status(500).json({ success: false, message: 'Internal Server Error' });
         }
         if (!user) {
-            return res.status(401).json({ success: false, message: 'Invalid Credentials' });
+            return res.status(401).json({ success: false,invalidCredentials:true ,message: 'Invalid Credentials' });
         }
         req.logIn(user, function(err) {
             if (err) {
