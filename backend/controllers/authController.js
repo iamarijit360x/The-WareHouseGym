@@ -1,6 +1,6 @@
 const passport=require("passport")
 const User=require('../models/UsersModel')
-const {encryptPassword}=require('../utils/passWordHash')
+const {hashPassword}=require('../utils/passWordHash')
 
 exports.signup=async (req,res)=>{
     const {firstname,lastname,email,password}=req.body
@@ -10,7 +10,7 @@ exports.signup=async (req,res)=>{
         return res.json({userExists:"True"})
            
         }
-        const enPass=await encryptPassword(password);
+        const enPass=await hashPassword(password);
         const newUser=new User({firstname:firstname,lastname:lastname,email:email,password:enPass})
 
         const response=await newUser.save();
@@ -27,11 +27,12 @@ exports.signup=async (req,res)=>{
 
 exports.login = function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
+        console.log(info)
         if (err) {
             return res.status(500).json({ success: false, message: 'Internal Server Error' });
         }
         if (!user) {
-            return res.status(401).json({ success: false,invalidCredentials:true ,message: 'Invalid Credentials' });
+            return res.status(401).json(info);
         }
         req.logIn(user, function(err) {
             if (err) {

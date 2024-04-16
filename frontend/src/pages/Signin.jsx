@@ -11,12 +11,15 @@ function SignInPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [error,setError]=useState(null)
+  const [loginDisabled,setDisable]=useState(false)
+  const [showPassword, setShowPassword] = useState(false);
+
 
   const handleSignIn = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3000/login', { email, password });
-      console.log(response.data)
+     
       if (response.data.success) {
         dispatch(setAuthState(true));
         dispatch(setUserData(response.data.user))
@@ -24,6 +27,8 @@ function SignInPage() {
       }
     } catch (error) {
       console.error(error.response.data);
+      if(error.response.data.loginDisabled)
+        setDisable(true)
       setError(error)
     }
   };
@@ -38,26 +43,29 @@ function SignInPage() {
               <p className="text-muted mb-4 text-center">Please enter your login and password!</p>
               
               
-              <Form className="mb-4" onSubmit={handleSignIn}>
+              <Form className="mb-4" onSubmit={handleSignIn} >
                 <Form.Group className="mb-3" controlId="email">
                   <Form.Control type="email" placeholder="Enter email" size="md" className="bg-dark text-light" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="password">
                   <InputGroup>
-                    <Form.Control type="password" placeholder="Password" size="md" className="bg-dark text-light" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                    <Form.Control  id="password" type={showPassword?"text":"password"} placeholder="Password" size="md" className="bg-dark text-light" value={password} onChange={(e) => setPassword(e.target.value)} required />
                     <InputGroup.Text className="bg-dark text-light">
-                      <i className="fas fa-eye"></i>
+                    <i style={{cursor:"pointer"}}onClick={() => setShowPassword(!showPassword)} className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+
                     </InputGroup.Text>
                   </InputGroup>
                 </Form.Group>
-                <Button variant="primary" size='md' type="submit" className="w-100 mb-2">
+                <Button disabled={loginDisabled}  variant="primary" size='md' type="submit" className="w-100 mb-2">
                   Login
                 </Button>
               </Form>
               <hr className="my-3" />
 
              
-                  {error && <p className="text-danger mb-4 text-center">Invalid Email Or Pasword</p>}
+                  {error && <p className="text-danger mb-4 text-center">{error.response.data.message}
+                  
+                  </p>}
    
               
               <Button size='md' className="mb-2 w-100" style={{ backgroundColor: '#dd4b39' }}>
