@@ -1,22 +1,22 @@
 import React from 'react';
-import { Navbar, Nav, Container, Button } from 'react-bootstrap';
+import { Navbar, Nav, Container, Button,Badge} from 'react-bootstrap';
 import logo from "../assets/gymlogo.png";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setAuthState,setUserData } from '../utils/store/AuthSlice';
 import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function MyNavbar() {
   const authState=useSelector(state=>state.auth.authState)
   const name=useSelector(state=>state.auth.userData.firstname)
+  const cartCount=useSelector(state=>state.cart.count)
   const dispatch=useDispatch()
   const navigate=useNavigate()
 
 
   const handleLogout = async () => {
     try {
-
+      
       const response = await axios.get('http://localhost:3000/signout'); 
       dispatch(setAuthState(false))
       dispatch(setUserData({}))
@@ -48,7 +48,9 @@ export default function MyNavbar() {
             <Nav.Link href="#">Price</Nav.Link>
             <Nav.Link href="#">Contact Us</Nav.Link>
             {authState?<Nav.Link href="/dashboard"><span>{name}<i class="fa-regular fa-user"></i></span></Nav.Link>:null}
-
+            <Nav.Link ><i class="fa-solid fa-cart-shopping">  <Badge pill variant="danger" className="badge-icon">
+        {cartCount}
+      </Badge></i></Nav.Link>
             {authState?<Nav.Link onClick={()=>handleLogout()}>Sign Out</Nav.Link>:<Nav.Link href="/signin">Hello, Sign In</Nav.Link>}
           </Nav>
         </Navbar.Collapse>

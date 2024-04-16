@@ -1,4 +1,4 @@
-const mongoose=require('mongoose')
+const mongoose=require('mongoose');
 const passportLocalMongoose = require('passport-local-mongoose');
 
 
@@ -9,7 +9,8 @@ const userSchema=new mongoose.Schema({
     phone:String,
     email:String,
     password:String,
-    membershipExpiry:Date
+    membership:Date,
+    memberShipStatus:Boolean
 })
 
 const UserModel=mongoose.model("User",userSchema)

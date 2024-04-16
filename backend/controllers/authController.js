@@ -1,6 +1,6 @@
 const passport=require("passport")
 const User=require('../models/UsersModel')
-
+const {encryptPassword}=require('../utils/passWordHash')
 
 exports.signup=async (req,res)=>{
     const {firstname,lastname,email,password}=req.body
@@ -10,8 +10,8 @@ exports.signup=async (req,res)=>{
         return res.json({userExists:"True"})
            
         }
-       
-        const newUser=new User({firstname:firstname,lastname:lastname,email:email,password:password})
+        const enPass=await encryptPassword(password);
+        const newUser=new User({firstname:firstname,lastname:lastname,email:email,password:enPass})
 
         const response=await newUser.save();
         return res.json({"success":true})

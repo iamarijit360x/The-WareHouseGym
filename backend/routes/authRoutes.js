@@ -7,10 +7,6 @@ const { login, signup, signout } = require('../controllers/authController');
 
 router.post('/login', login);
 
-router.get('/signup', (req, res) => {
-  res.send('signup');
-});
-
 router.post('/signup',signup);
 
 router.get('/profile', (req, res) => {
