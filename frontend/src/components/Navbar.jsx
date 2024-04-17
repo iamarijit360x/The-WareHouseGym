@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setAuthState,setUserData } from '../utils/store/AuthSlice';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 export default function MyNavbar() {
   const authState=useSelector(state=>state.auth.authState)
@@ -17,11 +18,15 @@ export default function MyNavbar() {
   const handleLogout = async () => {
     try {
       
-      const response = await axios.get('http://localhost:3000/signout'); 
+      axios
+      .get("http://localhost:3000/signout", { withCredentials: true })
+      .then(console.log)
+      .catch(console.error); 
       dispatch(setAuthState(false))
       dispatch(setUserData({}))
       navigate('/signin')
       console.log(response.data);
+      
     } catch (error) {
       console.error('Logout failed:', error);
     }

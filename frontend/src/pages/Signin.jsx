@@ -3,7 +3,8 @@ import { Container, Row, Col, Card, Form, Button, InputGroup } from 'react-boots
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom'; 
 import { useDispatch } from 'react-redux';
-import { setAuthState,setUserData } from '../utils/store/AuthSlice';
+import { setAuthState, setUserData } from '../utils/store/AuthSlice';
+import Cookies from 'js-cookie'; // Import js-cookie library
 
 function SignInPage() {
   const [email, setEmail] = useState('');
@@ -14,22 +15,24 @@ function SignInPage() {
   const [loginDisabled,setDisable]=useState(false)
   const [showPassword, setShowPassword] = useState(false);
 
-
   const handleSignIn = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/login', { email, password });
-     
+      const response = await axios.post('http://localhost:3000/login', { email, password },{ withCredentials: true });
+
       if (response.data.success) {
+        // Set a cookie after successful login
+        Cookies.set('connect.sid	', response.data.token); // Set a cookie named 'token' with the value of the token received from the server
+        
         dispatch(setAuthState(true));
-        dispatch(setUserData(response.data.user))
+        dispatch(setUserData(response.data.user));
         navigate('/dashboard');
       }
     } catch (error) {
       console.error(error.response.data);
       if(error.response.data.loginDisabled)
         setDisable(true)
-      setError(error)
+      setError(error);
     }
   };
 
@@ -42,7 +45,6 @@ function SignInPage() {
               <h2 className="fw-bold mb-3 text-center">Sign in</h2>
               <p className="text-muted mb-4 text-center">Please enter your login and password!</p>
               
-              
               <Form className="mb-4" onSubmit={handleSignIn} >
                 <Form.Group className="mb-3" controlId="email">
                   <Form.Control type="email" placeholder="Enter email" size="md" className="bg-dark text-light" value={email} onChange={(e) => setEmail(e.target.value)} required />
@@ -52,7 +54,6 @@ function SignInPage() {
                     <Form.Control  id="password" type={showPassword?"text":"password"} placeholder="Password" size="md" className="bg-dark text-light" value={password} onChange={(e) => setPassword(e.target.value)} required />
                     <InputGroup.Text className="bg-dark text-light">
                     <i style={{cursor:"pointer"}}onClick={() => setShowPassword(!showPassword)} className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
-
                     </InputGroup.Text>
                   </InputGroup>
                 </Form.Group>
@@ -61,13 +62,7 @@ function SignInPage() {
                 </Button>
               </Form>
               <hr className="my-3" />
-
-             
-                  {error && <p className="text-danger mb-4 text-center">{error.response.data.message}
-                  
-                  </p>}
-   
-              
+              {error && <p className="text-danger mb-4 text-center">{error.response.data.message}</p>}
               <Button size='md' className="mb-2 w-100" style={{ backgroundColor: '#dd4b39' }}>
                 <i className="fab fa-google me-2"></i>
                 Sign in with Google

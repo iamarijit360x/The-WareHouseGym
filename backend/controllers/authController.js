@@ -13,7 +13,7 @@ exports.signup=async (req,res)=>{
         const enPass=await hashPassword(password);
         const newUser=new User({firstname:firstname,lastname:lastname,email:email,password:enPass})
 
-        const response=await newUser.save();
+        await newUser.save();
         return res.json({"success":true})
         
     

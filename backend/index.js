@@ -1,40 +1,45 @@
-// app.js
 const express = require('express');
 const app = express();
-const cors=require('cors')
+const cors = require('cors');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const authRoutes = require('./routes/authRoutes')
-require('dotenv').config()
+const authRoutes = require('./routes/authRoutes');
+//const MongoStore = require('connect-mongo');
+
+
+require('dotenv').config();
 
 // Configure mongoose
-mongoose.connect( process.env.DB_URL,{ useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.DB_URL);
 
 // Configure passport
+require('./config/passport');
 
 // Express middleware
-app.use(express.json())
-app.use(cors());
+app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
+app.use(express.json());
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
-app.use(passport.initialize());
 app.use(session({
-    secret:process.env.SECRET_KEY,
+    secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: false,
-  }));
 
-  require('./config/passport');
+    
+}));
 
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Routes
-app.use(authRoutes)
+app.use(authRoutes);
+
 // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });

@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Pricing from '../components/Pricing/Pricing';
+import axios from 'axios';
 
 function Dashboard() {
 
@@ -13,6 +14,12 @@ function Dashboard() {
   temp2= temp2.getTime()
   let temp3=temp-temp2
   let daysLeft=Math.ceil(temp3/(1000*60*60*24))
+  //
+      axios
+     .get("http://localhost:3000/profile", { withCredentials: true })
+     .then(console.log)
+     .catch(console.error);
+
   return (
     <Container  fluid className="bg-dark text-light" style={{ minHeight: '100vh' }}>
       <Row>
