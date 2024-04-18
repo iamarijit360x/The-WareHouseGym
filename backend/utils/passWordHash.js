@@ -16,11 +16,9 @@ async function verifyPassword(password, hashedPassword) {
     try { 
         const match = await bcrypt.compare(password, hashedPassword);
         
-        console.log("Password Verification Result:", match);
         
         return match;
     } catch (error) {
-        console.error("Password Verification Error:", error);
         throw error;
     }
 }

@@ -1,5 +1,6 @@
 const passport=require("passport")
 const User=require('../models/UsersModel')
+const Membership=require('../models/MembershipModel')
 const {hashPassword}=require('../utils/passWordHash')
 
 exports.signup=async (req,res)=>{
@@ -50,4 +51,38 @@ exports.signout=(req,res)=>{
             console.log(err)
         res.end()
     });
+}
+exports.buyMembership=async (req,res)=>{
+    const data=req.body
+    const userId=req.user.id
+    let today=new Date()
+    today=today.toDateString()
+    let expiryDate=data.duration*30*24*60*60*1000 ;
+    
+    try{
+        const user=await User.findById({_id:userId})
+        if(user.memberShipStatus)
+        {
+            expiryDate=expiryDate+Date.parse(user.membership)
+        }
+
+        else
+        {
+            expiryDate=expiryDate+Date.now()
+        }
+
+        expiryDate=new Date(expiryDate)
+        expiryDate=expiryDate.toDateString()
+        const updatedUser = await User.findByIdAndUpdate(userId,{ memberShipStatus: true,membership:expiryDate });
+        const newMembership=new Membership({userId:userId,productId:data.id,purchaseDate:today,expiryDate:expiryDate})
+        await newMembership.save();
+        res.send({success:true})
+
+    }
+    catch(err){
+        console.log(err)
+        res.json({sucess:false,message:err})
+    }
+
+
 }

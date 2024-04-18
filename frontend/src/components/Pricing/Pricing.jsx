@@ -2,14 +2,17 @@ import React from 'react';
 import Card from 'react-bootstrap/Card';
 import { Container, Button, Row, Col } from 'react-bootstrap';
 import './Pricing.css';
+import { useNavigate,Link } from 'react-router-dom';
+
 import sliver from '../../assets/sliver.png';
 
 export default function Pricing() {
+  const navigate=useNavigate()
   let packages = [
-    { name: "Monthly", price: 450, duration: 1, img: sliver },
-    { name: "Quater Yearly", price: 1200, duration: 3, img: sliver },
-    { name: "Half yearly", price: 2250, duration: 6, img: sliver },
-    { name: "Yearly", price: 4200, duration: 12, img: sliver }
+    { membersip:true,id:"m001",name: "Monthly", price: 450, duration: 1, img: sliver },
+    { membersip:true,id:"m002",name: "Quater Yearly", price: 1200, duration: 3, img: sliver },
+    { membersip:true,id:"m003",name: "Half yearly", price: 2250, duration: 6, img: sliver },
+    { membersip:true,id:"m004",name: "Yearly", price: 4200, duration: 12, img: sliver }
   ];
 
   return (
@@ -38,7 +41,8 @@ export default function Pricing() {
                 <Card.Text>Price: ₹{item.price}</Card.Text>
                 <Card.Text>Duration: {item.duration} months</Card.Text>
                 <Card.Subtitle>Monthly: ₹{item.price / item.duration} Only</Card.Subtitle>
-                <Button variant="primary">Buy Now</Button>
+                <Button onClick={()=>{navigate('/checkout', { state: {item} });}} variant="primary">Buy Now</Button>
+                
               </Card.Body>
             </Card>
           </Col>

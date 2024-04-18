@@ -3,7 +3,7 @@ import {Container,Row,Col} from 'react-bootstrap'
 import {useNavigate} from 'react-router-dom'
 export default function UnAuth(){
     const navigate=useNavigate()
-    const [count, setCount] = useState(4);
+    const [count, setCount] = useState(2);
 
   useEffect(() => {
     if (count > 0) {
@@ -15,12 +15,12 @@ export default function UnAuth(){
   }, [count]);
     return(
        
-        <Container>
+        <Container style={{height:"100vh"}}fluid className='bg-dark text-light'>
             <Row>
 
                 <Col>
-                    <h2>You are not Authrized please Login </h2>
-                    <h3>{count}</h3>
+                    <h2 className='text-center'>You are not Authrized please Login </h2>
+                    <h3 className='text-center'>Redirecting to Login in {count} Secs</h3>
                     
                 </Col>
             </Row>

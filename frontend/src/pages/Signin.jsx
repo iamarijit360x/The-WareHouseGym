@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom'; 
 import { useDispatch } from 'react-redux';
 import { setAuthState, setUserData } from '../utils/store/AuthSlice';
-import Cookies from 'js-cookie'; // Import js-cookie library
 
 function SignInPage() {
   const [email, setEmail] = useState('');
@@ -21,11 +20,8 @@ function SignInPage() {
       const response = await axios.post('http://localhost:3000/login', { email, password },{ withCredentials: true });
 
       if (response.data.success) {
-        // Set a cookie after successful login
-        Cookies.set('connect.sid	', response.data.token); // Set a cookie named 'token' with the value of the token received from the server
         
         dispatch(setAuthState(true));
-        dispatch(setUserData(response.data.user));
         navigate('/dashboard');
       }
     } catch (error) {
