@@ -51,10 +51,8 @@ export default function MyNavbar() {
           <Nav className="flex-grow-1 justify-content-around">
             <Nav.Link href="#">Price</Nav.Link>
             <Nav.Link href="#">Contact Us</Nav.Link>
-            <Nav.Link ><i class="fa-solid fa-cart-shopping">  <Badge pill variant="danger" className="badge-icon">
-        {cartCount}
-      </Badge></i></Nav.Link>
-            {authState?<Nav.Link href="/dashboard"><span>{name}<i class="fa-regular fa-user"></i></span></Nav.Link>:null}
+           
+            {authState?<Nav.Link href="/dashboard"><span> {name}<i class="fa-regular fa-user"></i></span></Nav.Link>:null}
             {authState?<Nav.Link onClick={()=>handleLogout()}>Sign Out</Nav.Link>:<Nav.Link href="/signin">Hello, Sign In</Nav.Link>}
           </Nav>
         </Navbar.Collapse>

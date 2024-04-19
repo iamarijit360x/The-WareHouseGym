@@ -1,6 +1,5 @@
 import WelcomeScreen from "../components/WelcomeScreen/WelcomeScreen";
 import Pricing from "../components/Pricing/Pricing";
-import Footer from "../components/Footer/Footer";
 
 export default function Home(){
 
@@ -9,7 +8,6 @@ export default function Home(){
         <>
             <WelcomeScreen/>
             <Pricing/>
-            <Footer/>
         </>
     )
 }

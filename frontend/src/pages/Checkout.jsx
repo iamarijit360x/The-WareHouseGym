@@ -1,6 +1,6 @@
 import { Col, Row, Container, Form, Button } from "react-bootstrap";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setAuthState } from "../utils/store/AuthSlice";
 import axios from "axios";
@@ -10,14 +10,15 @@ export default function Checkout() {
     const dispatch=useDispatch()
     const { item } = state;
     const items = [item];
+    const navigate=useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             // Perform the POST request
             const response = await axios.post('http://localhost:3000/buy', item, { withCredentials: true });
-            console.log(response.data); // Log the response data
-            // Handle the response data as needed
+            if(response.data.success)
+            navigate('/dashboard')
         } catch (err) {
             if(!err.response.data.authStatus);
                 dispatch(setAuthState(false));

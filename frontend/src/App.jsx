@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route,Navigate } from 'react-router-dom';
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import Checkout from "./pages/Checkout";
+import Footer from "./components/Footer/Footer";
 function App() {
  
 const authState=useSelector(state=>state.auth.authState)
@@ -24,6 +25,7 @@ const authState=useSelector(state=>state.auth.authState)
           <Route path='/checkout' element={authState?<Checkout/>:<UnAuth/>}/>
           
       </Routes>
+      <Footer/>
     </BrowserRouter>
   )
 }

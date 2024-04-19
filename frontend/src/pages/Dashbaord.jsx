@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container,ProgressBar, Row, Col, Card, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import Pricing from '../components/Pricing/Pricing';
 import axios from 'axios';
 import { setAuthState, setUserData } from '../utils/store/AuthSlice';
+import Pricing from '../components/Pricing/Pricing';
 
 function Dashboard() {
 
@@ -18,6 +18,7 @@ function Dashboard() {
   temp2= temp2.getTime()
   let temp3=temp-temp2
   let daysLeft=Math.ceil(temp3/(1000*60*60*24))
+  let percentage=daysLeft;
   //
   useEffect(()=>{
 
@@ -32,23 +33,25 @@ function Dashboard() {
   return (
     <Container  fluid className="bg-dark text-light" style={{ minHeight: '100vh' }}>
       <Row>
-        <Col lg={12}>
-          <p className='text-center display-4'>Welcome Back {userData.firstname}</p>
-          {userData.membership?
+      <p className='text-center display-4'>Welcome Back {userData.firstname}</p>
+       <Col >{userData.membership?
+        <div className='rounded border d-flex p-4 flex-column justify-content-center align-items-center mx-auto'>
+          <p className='text-center fs-3'>MemberShip Details</p>
+          <p className='fs-4'>Expiry Date:{dd.toDateString()}</p>
+          <p className='fs-4'>Days Remaining {daysLeft}</p>
+        </div>
+        
+      :<div className='rounded border d-flex p-4 flex-column justify-content-center align-items-center mx-auto'>
+      <p className='text-center fs-3'>Hey {userData.firstname} Looks Like You Don't have a Mermbership</p>
+      <p className='text-center fs-5'>Let's Get One</p>
+      <Pricing/>
+    </div>
+      }
+       </Col>
 
-            <div>
-              <p>Your membership expires on {dd.toDateString()}</p>
-              <p>Your membership expires in {daysLeft} Days</p>
-            </div>
-            :<div>
-              <p className='text-center display-6'>Hey Looks Like You Don't Have Membership!?</p>
-              <p className='text-center display-6 text-danger text-decoration-underline'>Let's Get One</p>
-              <Pricing/>            
-            </div>
-            
-          }
-          
-        </Col>
+     
+
+      
       </Row>
     </Container>
   );
