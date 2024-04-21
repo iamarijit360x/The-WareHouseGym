@@ -28,7 +28,6 @@ exports.signup=async (req,res)=>{
 
 exports.login = function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
-        console.log(info)
         if (err) {
             return res.status(500).json({ success: false, message: 'Internal Server Error' });
         }
@@ -55,34 +54,50 @@ exports.signout=(req,res)=>{
 exports.buyMembership=async (req,res)=>{
     const data=req.body
     const userId=req.user.id
-    let today=new Date()
-    today=today.toDateString()
-    let expiryDate=data.duration*30*24*60*60*1000 ;
+    let expiryDate=data.duration*30*24*60*60*1000+Date.now() ;
     
-    try{
-        const user=await User.findById({_id:userId})
-        if(user.memberShipStatus)
-        {
-            expiryDate=expiryDate+Date.parse(user.membership)
-        }
-
-        else
-        {
-            expiryDate=expiryDate+Date.now()
-        }
-
-        expiryDate=new Date(expiryDate)
-        expiryDate=expiryDate.toDateString()
-        const updatedUser = await User.findByIdAndUpdate(userId,{ memberShipStatus: true,membership:expiryDate });
-        const newMembership=new Membership({userId:userId,productId:data.id,purchaseDate:today,expiryDate:expiryDate})
-        await newMembership.save();
-        res.send({success:true})
-
-    }
-    catch(err){
-        console.log(err)
-        res.json({sucess:false,message:err})
-    }
+    User.findById(userId)
+        .then(async user => {
+            if (!user) {
+                throw new Error('User not found');
+            }
+           
+            let newStartDate=new Date();
+            let expiryDate;
+           
+            if(user.membership && user.membership.length)
+            {
+                 const lastMembership = user.membership[user.membership.length - 1];
+                 newStartDate = new Date(lastMembership.end_date);
+                 
+            }
+            expiryDate = new Date(newStartDate);
+            expiryDate.setMonth(newStartDate.getMonth() + data.duration);
+            // Create a new membership object
+            let newMembership = {
+                start_date: newStartDate,
+                end_date: expiryDate,
+                duration:data.duration,
+             
+            };
+            if(user.membership.length===0)
+            {
+                newMembership.status=true;
+            }
+            // Push the new membership object to the user's membership array
+            user.membership.push(newMembership);
+            user.OrderHistory.push(newMembership)
+            // Save the updated user
+            return await user.save();
+        })
+        .then(updatedUser => {
+            
+            res.send(updatedUser);
+        })
+        .catch(error => {
+            console.error('Error updating user:', error);
+            res.status(500).send({ error: 'Error updating user' });
+        });
 
 
 }

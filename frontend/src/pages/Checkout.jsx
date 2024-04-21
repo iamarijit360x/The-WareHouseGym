@@ -17,6 +17,7 @@ export default function Checkout() {
         try {
             // Perform the POST request
             const response = await axios.post('http://localhost:3000/buy', item, { withCredentials: true });
+            console.log(response)
             if(response.data.success)
             navigate('/dashboard')
         } catch (err) {

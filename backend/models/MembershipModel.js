@@ -5,6 +5,7 @@ const membershipSchema=new mongoose.Schema({
     userId:String,
     productId:String,
     purchaseDate:Date,
+    startDate:Date,
     expiryDate:Date
 })
 
