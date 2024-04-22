@@ -4,16 +4,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { setAuthState, setUserData } from '../utils/store/AuthSlice';
 import Pricing from '../components/Pricing/Pricing';
+import { useLocation } from 'react-router-dom';
 
 function Dashboard() {
-
+  
   const userData=useSelector(state=>state.auth.userData)
   const dispatch=useDispatch()
   const [k,setK]=useState(0)
   const [newUser,setnewUser]=useState(false)
-  const [expired,setExpired]=useState(true)
+  const [expired,setExpired]=useState(false)
   const [loading,setLoading]=useState(true)
   const [buttonStatus,setButton]=useState(false)
+
+  const [buttonPrevStatus,setPrevButton]=useState(true)
   const [info,setInfo]=useState({})
   let membership,expiryDate,startDate,daysLeft,percentage;
   let today=new Date();
@@ -22,10 +25,26 @@ function Dashboard() {
   
    function handleMemberhipNav(){
       if(k===userData.membership.length-1)
-        setButton(true)
+      setButton(true)
       else
+       {
+        setPrevButton(false) 
         setK(k+1)
+      }
     }
+
+    function handleMemberhipPrevNav(){
+      if(k===0)
+      setPrevButton(true)
+        
+      else
+      {  
+        setK(k-1)
+        setButton(false)
+      }
+    }
+
+
     useEffect(() => {
       
        
@@ -47,12 +66,14 @@ function Dashboard() {
 
     
      
-    }, []);
+    }, [dispatch]);
 
 
     useEffect(()=>{
-          if(Object.keys(userData).length !== 0.)
-            {if(userData.membership.length)
+          if(Object.keys(userData).length !== 0)
+            {
+              
+            if(userData.membership.length)
             { 
               
               membership=userData.membership[k];
@@ -95,9 +116,9 @@ function Dashboard() {
             setLoading(false)
 }     
 
-    },[userData])
+    },[userData,k])
      
-   
+   try{
   return (
     <Container  fluid className="bg-dark text-light" style={{ minHeight: '100vh' }}>
       
@@ -128,13 +149,17 @@ function Dashboard() {
           <p className='text-center fs-3'>MemberShip Details</p>
           <p className='fs-4'>Start Date:{info.startDate.toDateString()}</p>
           <p className='fs-4'>Expiry Date:{info.expiryDate.toDateString()}</p>
-          {info.status?
+          {userData.membership[k].status?
              <><p className='text-success'>active</p><ProgressBar style={{ width: "15rem" }} max={100} now={percentage} /><p className='fs-4'>Days Remaining {info.daysLeft}</p></>
             :<p>Upcoming</p>
             
             }
         
-        {userData.membership.length>1 && <Button disabled={buttonStatus} onClick={()=>handleMemberhipNav()}>{'>'}</Button>}
+        {userData.membership.length>1 && 
+        <div className='d-flex justify-around'>
+          <Button disabled={buttonPrevStatus} onClick={() => handleMemberhipPrevNav()}>{'<'}</Button>
+          <Button disabled={buttonStatus} onClick={() => handleMemberhipNav()}>{'>'}</Button>
+        </div>}
         </div>
         
       
@@ -146,7 +171,10 @@ function Dashboard() {
       
       </Row>}
     </Container>
-  );
+  );}
+  catch{
+    window.location.reload();
+  }
 }
 
 export default Dashboard;

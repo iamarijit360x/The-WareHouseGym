@@ -2,7 +2,7 @@ import { Col, Row, Container, Form, Button } from "react-bootstrap";
 import { useState } from "react";
 import { useLocation,useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setAuthState } from "../utils/store/AuthSlice";
+import { setAuthState,setUserData } from "../utils/store/AuthSlice";
 import axios from "axios";
 
 export default function Checkout() {
@@ -19,9 +19,23 @@ export default function Checkout() {
             const response = await axios.post('http://localhost:3000/buy', item, { withCredentials: true });
             console.log(response)
             if(response.data.success)
-            navigate('/dashboard')
+           { 
+                axios.get("http://localhost:3000/profile", { withCredentials: true })
+               .then((response)=>{
+                if(response.data)
+                    dispatch(setUserData(response.data));})
+                .then(()=>{
+                    navigate('/dashboard')
+                })
+                .catch((err)=>{
+                console.error("Error fetching data:", err);
+                dispatch(setAuthState(false));
+              })
+                    
+                
+            }
         } catch (err) {
-            if(!err.response.data.authStatus);
+           
                 dispatch(setAuthState(false));
         }
     };

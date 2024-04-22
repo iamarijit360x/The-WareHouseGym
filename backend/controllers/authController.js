@@ -92,7 +92,7 @@ exports.buyMembership=async (req,res)=>{
         })
         .then(updatedUser => {
             
-            res.send(updatedUser);
+            res.json({success:true});
         })
         .catch(error => {
             console.error('Error updating user:', error);
