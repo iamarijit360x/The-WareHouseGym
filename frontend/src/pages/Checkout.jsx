@@ -1,4 +1,4 @@
-import { Col, Row, Container, Form, Button } from "react-bootstrap";
+import { Col, Row, Container, Form,InputGroup, Button } from "react-bootstrap";
 import { useState } from "react";
 import { useLocation,useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -8,15 +8,18 @@ import axios from "axios";
 export default function Checkout() {
     const { state } = useLocation();
     const dispatch=useDispatch()
-    const { item } = state;
-    const items = [item];
+    const { products } = state;
+    const items = products;
+    console.log(products)
+
+    
     const navigate=useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Perform the POST request
-            const response = await axios.post('http://localhost:3000/buy', item, { withCredentials: true });
+            console.log(products)
+            const response = await axios.post('http://localhost:3000/buy', products, { withCredentials: true });
             console.log(response)
             if(response.data.success)
            { 
@@ -35,7 +38,7 @@ export default function Checkout() {
                 
             }
         } catch (err) {
-           
+                console.error( err);
                 dispatch(setAuthState(false));
         }
     };
@@ -49,14 +52,16 @@ export default function Checkout() {
                         <p className="fs-3">Products</p>
                         {items.map((item, index) => (
                             <div className="d-flex justify-content-between" key={index}>
-                                <p className="">{index + 1}.{item.name}</p>
+                                <p className="">{index + 1}.{item.name ? item.name:null}</p>
                                 <p>{item.price}</p>
                             </div>
                         ))}
+             
                         <hr />
                         <div className="d-flex justify-content-between">
                             <p>Subtotal</p>
                             <p>{items.reduce((total, x) => total + x.price, 0)}</p>
+                            
                         </div>
                         <div className="text-center">
                             <Button onClick={handleSubmit}>Pay Now</Button>

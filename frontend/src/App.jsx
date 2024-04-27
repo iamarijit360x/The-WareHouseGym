@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import Checkout from "./pages/Checkout";
 import Footer from "./components/Footer/Footer";
+import Pricing2 from "./pages/Pricing2";
 function App() {
  
 const authState=useSelector(state=>state.auth.authState)
@@ -22,6 +23,7 @@ const authState=useSelector(state=>state.auth.authState)
           <Route path='/signin' element={authState ? <Navigate to="/dashboard" /> : <SignInPage />} />
           <Route path='/signup' element={authState ? <Navigate to="/dashboard" /> : <SignUp />} />
           <Route path='/dashboard' element={authState?<DashBoard/>:<UnAuth/>}/>
+          <Route path='/pricing' element={authState?<Pricing2/>:<UnAuth/>}/>
           <Route path='/checkout' element={authState?<Checkout/>:<UnAuth/>}/>
           
       </Routes>

@@ -52,10 +52,27 @@ exports.signout=(req,res)=>{
     });
 }
 exports.buyMembership=async (req,res)=>{
-    const data=req.body
-    const userId=req.user.id
-    let expiryDate=data.duration*30*24*60*60*1000+Date.now() ;
+    let data=req.body
+    let personal_training=false,trademil=false;
+    if(data.length){
+        for(let i=0;i<data.length;i++)
+        {
+            if(data[i].hasOwnProperty('personal_training')){
+                personal_training=true
+            }
+
+            else if(data[i].hasOwnProperty('trademil')){
+                trademil=true
+            }
+        }
+    }
+  
     
+    data=data[0]
+        
+        
+    const userId=req.user.id
+    console.log(data,personal_training,trademil)
     User.findById(userId)
         .then(async user => {
             if (!user) {
@@ -78,6 +95,8 @@ exports.buyMembership=async (req,res)=>{
                 start_date: newStartDate,
                 end_date: expiryDate,
                 duration:data.duration,
+                personal_training:personal_training,
+                trademil:trademil
              
             };
             if(user.membership.length===0)

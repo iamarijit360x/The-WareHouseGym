@@ -5,6 +5,8 @@ const membershipSchema = new mongoose.Schema({
     start_date: Date,
     end_date: Date,
     status: Boolean,
+    personal_training:Boolean,
+    trademil:Boolean,
     duration:Number
 });
 

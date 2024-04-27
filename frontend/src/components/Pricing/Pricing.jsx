@@ -41,7 +41,7 @@ export default function Pricing() {
                 <Card.Text>Price: ₹{item.price}</Card.Text>
                 <Card.Text>Duration: {item.duration} months</Card.Text>
                 <Card.Subtitle>Monthly: ₹{item.price / item.duration} Only</Card.Subtitle>
-                <Button onClick={()=>{navigate('/checkout', { state: {item} });}} variant="primary">Buy Now</Button>
+                <Button onClick={()=>{navigate('/pricing', { state: {item} });}} variant="primary">Buy Now</Button>
                 
               </Card.Body>
             </Card>

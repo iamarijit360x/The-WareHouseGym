@@ -5,17 +5,18 @@ import image from '../../assets/cover.png';
 
 export default function WelcomeScreen() {
   return (
-    <Container fluid className="background-container">
-      <Row >
-        <Col xs={12} md={6} className="d-flex align-items-center justify-content-center align-items-lg-center">
-          <img src={image} className="img-fluid" alt="Background" />
-        </Col>
-        <Col xs={12} md={6} className="d-flex align-items-center justify-content-center flex-column">
-            <Row><h2 className="tag-line text-center"><span>Strength</span>, <span>Sweat</span>, <span>Sucess</span></h2></Row>
-            <Row><p>100+ Clientss</p></Row>
+    <Container style={{paddingTop:"20px"}}fluid className="background-container d-flex flex-column align-items-center justify-content-center align-items-lg-center">
+   
           
-        </Col>
-      </Row>
+        
+          
+          <p className='text-center tag-line'>"Push Your Limits, Find Your Strength"</p>
+       
+        
+        
+       
+
+     
     </Container>
   );
 };

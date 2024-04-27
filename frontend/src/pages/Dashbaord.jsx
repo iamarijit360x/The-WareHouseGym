@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container,ProgressBar, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container,ProgressBar, Row, Col, Card, Button,Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { setAuthState, setUserData } from '../utils/store/AuthSlice';
@@ -89,15 +89,17 @@ function Dashboard() {
                 daysLeft:daysLeft,
                 duration:duration,
                 percentage:percentage,
-                info:membership.status
+                info:membership.status,
+                trademil:membership.trademil,
+                personal_training:membership.personal_training
               }
               setInfo(obj)
-          
+              console.log(info)
               
             }
             else if( userData.OrderHistory.length){
               setExpired(true)
-              setLoading(false);
+            
               membership=userData.OrderHistory[userData.OrderHistory.length-1];
               expiryDate=new Date(membership.end_date)
               startDate=new Date(membership.start_date);
@@ -110,28 +112,36 @@ function Dashboard() {
               
             }
             else{
-              setLoading(false);
+             
               setnewUser(true)
             }
-            setLoading(false)
-}     
-
+            setTimeout(() => {
+              setLoading(false);
+            }, 2000);
+    }     
+      
     },[userData,k])
      
    try{
   return (
     <Container  fluid className="bg-dark text-light" style={{ minHeight: '100vh' }}>
       
-     {loading?<p>Loading</p>: <Row>
-      <p className='text-center display-4'>Welcome Back {userData.firstname}</p>
-       <Col >{ newUser ?
+     {loading?    
+        <div className="d-flex justify-content-center align-items-center">
+          <Spinner animation="border" role="status">
+            <span className="sr-only">Loading...</span>
+          </Spinner>
+        </div>
+      : <Row>
+        <p className='text-center display-4'>Welcome Back {userData.firstname}</p>
+        <Col >{ newUser ?
 
         <div className='rounded border d-flex p-4 flex-column justify-content-center align-items-center mx-auto'>
         <p className='text-center fs-3'>Hey {userData.firstname} Looks Like You Don't have a Mermbership</p>
         <p className='text-center fs-5'>Let's Get One</p>
         <Pricing/>
         </div>
-        :expired?
+      :expired?
         <div className='rounded border d-flex p-4 flex-column justify-content-center align-items-center mx-auto'>
           <p className='text-center fs-3'>MemberShip Details</p>
           <p className='fs-4'>Start Date:{info.startDate.toDateString()}</p>
@@ -147,11 +157,14 @@ function Dashboard() {
         
         :<div className='rounded border d-flex p-4 flex-column justify-content-center align-items-center mx-auto'>
           <p className='text-center fs-3'>MemberShip Details</p>
+          <p>TradeMill Access:{info.trademil ?"Yes":"NO"}</p>
+          <p>Personal Tranning:{info.personal_traning}</p>
           <p className='fs-4'>Start Date:{info.startDate.toDateString()}</p>
           <p className='fs-4'>Expiry Date:{info.expiryDate.toDateString()}</p>
+          
           {userData.membership[k].status?
-             <><p className='text-success'>active</p><ProgressBar style={{ width: "15rem" }} max={100} now={percentage} /><p className='fs-4'>Days Remaining {info.daysLeft}</p></>
-            :<p>Upcoming</p>
+             <><p className='text-success'>Active</p><ProgressBar style={{ width: "15rem" }} max={100} now={percentage} /><p className='fs-4'>Days Remaining {info.daysLeft}</p></>
+            :<p  className='text-warning'>Upcoming</p>
             
             }
         
