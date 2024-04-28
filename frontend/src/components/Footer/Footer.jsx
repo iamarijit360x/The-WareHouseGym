@@ -16,9 +16,9 @@ export default function Footer() {
 
                     <Col  xs={12} md={4} lg={4} className="d-flex flex-column align-items-center justify-content-center">
                         <h3 className="footer-logo-text">The Warhouse Gym</h3>
-                        <p>123 Gym Street, Fitness City</p>
-                        <p>Phone: +123 456 7890</p>
-                        <p>Email: info@warhousegym.com</p>
+                        <p className='text-center'>123 Gym Street, Fitness City</p>
+                        <p className='text-center'>Phone: +123 456 7890</p>
+                        <p className='text-center'>Email: info@warhousegym.com</p>
                     </Col>
                    
                     <Col xs={12} md={4} lg={4} className="text-center">

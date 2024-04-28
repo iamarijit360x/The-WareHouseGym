@@ -47,7 +47,7 @@ export default function Checkout() {
         <Container fluid className="bg-dark text-light py-5">
             <Row lg={12} className="justify-content-center align-items-center">
                 <Col lg={5}>
-                    <div style={{ border: "1px solid white", padding: "1rem", height: "90vh" }}>
+                    <div style={{fontFamily:"Consolas", border: "1px solid white", padding: "1rem", height: "max-content",backgroundColor:"black" }}>
                         <p className="display-6 text-center">Order Summary</p>
                         <p className="fs-3">Products</p>
                         {items.map((item, index) => (

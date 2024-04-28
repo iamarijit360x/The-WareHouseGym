@@ -5,7 +5,7 @@ import axios from 'axios';
 import { setAuthState, setUserData } from '../utils/store/AuthSlice';
 import Pricing from '../components/Pricing/Pricing';
 import { useLocation } from 'react-router-dom';
-
+import './styles.css'
 function Dashboard() {
   
   const userData=useSelector(state=>state.auth.userData)
@@ -24,8 +24,10 @@ function Dashboard() {
   //membership Data Caluclations
   
    function handleMemberhipNav(){
-      if(k===userData.membership.length-1)
-      setButton(true)
+      if(k===userData.membership.length-2)
+     { setButton(true)
+       setK(k+1)
+    }
       else
        {
         setPrevButton(false) 
@@ -34,8 +36,9 @@ function Dashboard() {
     }
 
     function handleMemberhipPrevNav(){
-      if(k===0)
-      setPrevButton(true)
+      if(k===1)
+     { setK(k-1)
+       setPrevButton(true)}
         
       else
       {  
@@ -124,59 +127,76 @@ function Dashboard() {
      
    try{
   return (
-    <Container  fluid className="bg-dark text-light" style={{ minHeight: '100vh' }}>
+    <Container  fluid className=" bg-dark text-light align-content-center" style={{ minHeight: '100vh' }}>
       
-     {loading?    
-        <div className="d-flex justify-content-center align-items-center">
-          <Spinner animation="border" role="status">
-            <span className="sr-only">Loading...</span>
-          </Spinner>
+     {loading?
+        <Row>
+        <div className=" d-flex justify-content-center gap-5" > 
+               <Spinner animation="grow" variant="primary" />
+              <Spinner animation="grow" variant="secondary" />
+              <Spinner animation="grow" variant="success" />
+              <Spinner animation="grow" variant="danger" />
+              <Spinner animation="grow" variant="warning" />
+              <Spinner animation="grow" variant="info" />
+              <Spinner animation="grow" variant="light" />
+              <Spinner animation="grow" variant="dark" />
         </div>
-      : <Row>
+        </Row>
+      : 
+      <Row >
         <p className='text-center display-4'>Welcome Back {userData.firstname}</p>
-        <Col >{ newUser ?
+        <Col className='membership-card'>
 
-        <div className='rounded border d-flex p-4 flex-column justify-content-center align-items-center mx-auto'>
-        <p className='text-center fs-3'>Hey {userData.firstname} Looks Like You Don't have a Mermbership</p>
-        <p className='text-center fs-5'>Let's Get One</p>
-        <Pricing/>
-        </div>
-      :expired?
-        <div className='rounded border d-flex p-4 flex-column justify-content-center align-items-center mx-auto'>
-          <p className='text-center fs-3'>MemberShip Details</p>
-          <p className='fs-4'>Start Date:{info.startDate.toDateString()}</p>
-          <p className='fs-4'>Expiry Date:{info.expiryDate.toDateString()}</p>
-         
-             <p className='text-danger'>Expired</p>
-             <p>Pack Expired {Math.floor((new Date()-new Date(info.expiryDate))/1000/3600/24)} days ago</p>
-             <Pricing/>
-           
-            
+        <div  className=' membership-container rounded border d-flex p-4 flex-column justify-content-center  mx-auto'>
+        { newUser ?
+
+          <div>
+            <p className='text-center fs-3'>Hey {userData.firstname} Looks Like You Don't have a Mermbership</p>
+            <p className='text-center fs-5'>Let's Get One</p>
+            <Pricing/>
           </div>
-    
-        
-        :<div className='rounded border d-flex p-4 flex-column justify-content-center align-items-center mx-auto'>
-          <p className='text-center fs-3'>MemberShip Details</p>
-          <p>TradeMill Access:{info.trademil ?"Yes":"NO"}</p>
-          <p>Personal Tranning:{info.personal_traning}</p>
-          <p className='fs-4'>Start Date:{info.startDate.toDateString()}</p>
-          <p className='fs-4'>Expiry Date:{info.expiryDate.toDateString()}</p>
-          
-          {userData.membership[k].status?
-             <><p className='text-success'>Active</p><ProgressBar style={{ width: "15rem" }} max={100} now={percentage} /><p className='fs-4'>Days Remaining {info.daysLeft}</p></>
-            :<p  className='text-warning'>Upcoming</p>
-            
-            }
-        
-        {userData.membership.length>1 && 
-        <div className='d-flex justify-around'>
-          <Button disabled={buttonPrevStatus} onClick={() => handleMemberhipPrevNav()}>{'<'}</Button>
-          <Button disabled={buttonStatus} onClick={() => handleMemberhipNav()}>{'>'}</Button>
-        </div>}
-        </div>
+      :
+              <div>
+                <p className='text-center fs-3'>MemberShip Details</p>
+                <div className='fs-4'>
+                  <p className='text-center'>Srt Date: {info.startDate.toDateString()}</p>
+                  <p className='text-center'>Exp Date: {info.expiryDate.toDateString()}</p>
+                </div>
+                <p className='text-center fs-4'>Trademill Access:{info.trademil?"Yes":"No"}</p>
+                <p className=' text-center fs-4'>Personal Training:{info.personal_training?"Yes":"No"}</p>
+                
+                {expired?
+                  <>
+                    <p className='text-danger'>Expired</p>
+                    <p>Pack Expired {Math.floor((new Date() - new Date(info.expiryDate)) / 1000 / 3600 / 24)} days ago</p>
+                    <Pricing />
+                  </>
+                  :
+                  userData.membership[k].status ?
+                    <><p className='text-success text-center'>Active</p>{/*<ProgressBar style={{ width: "15rem" }} max={100} now={percentage} />*/}
+                      <p className='fs-4 text-center' >Days Remaining {info.daysLeft}</p></>
+                    : <><p className='text-warning text-center'>Upcoming</p>
+                        <p className='fs-4 text-center'>.</p>
+                      </>
+                    }
+
+                  {userData.membership.length > 1 &&
+                    <div className='d-flex justify-content-center'>
+                      <Button disabled={buttonPrevStatus} onClick={() => handleMemberhipPrevNav()}>{'<'}</Button>
+                      <Button disabled={buttonStatus} onClick={() => handleMemberhipNav()}>{'>'}</Button>
+                    </div>
+                    
+                    }
+                
+
+
+              </div>
+              }
+            </div>
+           
         
       
-      }
+      
        </Col>
 
      

@@ -49,7 +49,7 @@ function SignInPage() {
                   <InputGroup>
                     <Form.Control  id="password" type={showPassword?"text":"password"} placeholder="Password" size="md" className="bg-dark text-light" value={password} onChange={(e) => setPassword(e.target.value)} required />
                     <InputGroup.Text className="bg-dark text-light">
-                    <i style={{cursor:"pointer"}}onClick={() => setShowPassword(!showPassword)} className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                    <i style={{cursor:"pointer"}}onClick={() => setShowPassword(!showPassword)} className={`fas ${showPassword ? 'fa-eye' : 'fa-eye-slash'}`}></i>
                     </InputGroup.Text>
                   </InputGroup>
                 </Form.Group>

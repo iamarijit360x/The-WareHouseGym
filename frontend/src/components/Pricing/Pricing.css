@@ -5,7 +5,9 @@
     border-color: rgb(255, 230, 4);
     box-shadow: 1 4px 8px rgba(0, 234, 125, 0.1);
   }
-  
+  .pricing-container{
+    background:linear-gradient(45deg,rgb(104, 4, 4),black);
+  }
   .custom-card .card-img-top {
     height: 200px;
     object-fit: cover;

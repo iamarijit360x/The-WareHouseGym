@@ -16,7 +16,7 @@ export default function Pricing() {
   ];
 
   return (
-    <Container fluid className="pricing-container bg-dark text-light">
+    <Container fluid className="pricing-container text-light">
       <Row>
         <Col className="d-flex align-items-center justify-content-center align-items-lg-center">
           <h2>Packages</h2>
@@ -34,7 +34,7 @@ export default function Pricing() {
       <Row>
         {packages.map((item, index) => (
           <Col lg={3} key={index} className="d-flex justify-content-center align-items-center">
-            <Card className="custom-card" bg='dark' text="light">
+            <Card className="custom-card" bg='black' text="light">
               <Card.Img className="img-fluid" variant="top" src={item.img} />
               <Card.Body className="text-center">
                 <Card.Title>{item.name}</Card.Title>

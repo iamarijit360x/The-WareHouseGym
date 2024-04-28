@@ -24,24 +24,30 @@
  z-index: 0;
 }
   
-.welcome-img{
-  
-  max-height:600px;
-  z-index: 100;
-
-
-}
 
 .tag-line{
   
   font-family:'Mukta';
   font-weight: bolder;
   font-size:4em;
-  color: rgba(237, 255, 70, 0.822);
+  color:rgba(178,21,0,255)
+  ;
 }
 
 @media screen and (max-width: 768px) {
  .tag-line{
   font-size: 2em;
+  text-align: center;
+  color: rgb(255, 229, 30);
  }
+
+ .custom-col{
+  
+    flex:none;
+}
+ 
+
+
+
+
 }

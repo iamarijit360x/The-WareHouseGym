@@ -6,20 +6,24 @@ import SignInPage from "./pages/Signin";
 import SignUp from "./pages/Signup";
 import UnAuth from "./pages/UnAuth";
 import { BrowserRouter, Routes, Route,Navigate } from 'react-router-dom';
-import { useState } from "react";
+import { useState,useEffect} from "react";
 import { useSelector } from "react-redux";
 import Checkout from "./pages/Checkout";
 import Footer from "./components/Footer/Footer";
 import Pricing2 from "./pages/Pricing2";
 function App() {
+
  
+
 const authState=useSelector(state=>state.auth.authState)
 
   return (
     <BrowserRouter>
     <Navbar/>
+    
       <Routes>
-          <Route path='/' element={<Home/>}/>
+        
+          <Route  path='/' element={<Home/>}/>
           <Route path='/signin' element={authState ? <Navigate to="/dashboard" /> : <SignInPage />} />
           <Route path='/signup' element={authState ? <Navigate to="/dashboard" /> : <SignUp />} />
           <Route path='/dashboard' element={authState?<DashBoard/>:<UnAuth/>}/>
