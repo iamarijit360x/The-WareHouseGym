@@ -36,7 +36,7 @@ function SignInPage() {
     <Container fluid className="bg-dark text-light" style={{ minHeight: '100vh' }}>
       <Row className='justify-content-center align-items-center' style={{ minHeight: '100vh' }}>
         <Col xs={12} md={12} lg={6} className='d-flex justify-content-center'>
-          <Card className='bg-dark text-light' style={{ borderRadius: '1rem', maxWidth: '350px' }}>
+          <Card className='bg-black text-light' style={{ borderRadius: '1rem', maxWidth: '350px' }}>
             <Card.Body className='p-4'>
               <h2 className="fw-bold mb-3 text-center">Sign in</h2>
               <p className="text-muted mb-4 text-center">Please enter your login and password!</p>

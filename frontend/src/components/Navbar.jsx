@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setAuthState, setUserData } from '../utils/store/AuthSlice';
 import axios from 'axios';
+import './Navbar.css'
 
 export default function MyNavbar() {
   const authState = useSelector(state => state.auth.authState);
@@ -45,8 +46,8 @@ export default function MyNavbar() {
 
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="flex-grow-1 justify-content-around">
-            <Nav.Link href="#" className='text-white'>Price</Nav.Link>
-            <Nav.Link href="#" className='text-white'>Contact Us</Nav.Link>
+            <Nav.Link href="/pricing1" className='' ><span className='test'>Price</span></Nav.Link>
+            <Nav.Link href="#" className='text-white '><span className='test'>Contact Us</span> </Nav.Link>
 
             {authState ? <Nav.Link href="/dashboard" className='text-white'><span style={{ fontWeight: 'bold' }}>{name}</span><i class="fa-regular fa-user"></i></Nav.Link> : null}
             {authState ? <Nav.Link onClick={() => handleLogout()} className='text-white'>Sign Out</Nav.Link> : <Nav.Link href="/signin" className='text-warning'><span style={{ fontWeight: 'bold' }}>Sign In</span></Nav.Link>}

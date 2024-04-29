@@ -16,7 +16,7 @@ export default function Pricing() {
   ];
 
   return (
-    <Container fluid className="pricing-container text-light">
+    <Container id="pricing" fluid className="pricing-container text-light pt-5">
       <Row>
         <Col className="d-flex align-items-center justify-content-center align-items-lg-center">
           <h2>Packages</h2>
@@ -41,7 +41,7 @@ export default function Pricing() {
                 <Card.Text>Price: ₹{item.price}</Card.Text>
                 <Card.Text>Duration: {item.duration} months</Card.Text>
                 <Card.Subtitle>Monthly: ₹{item.price / item.duration} Only</Card.Subtitle>
-                <Button onClick={()=>{navigate('/pricing', { state: {item} });}} variant="primary">Buy Now</Button>
+                <Button style={{backgroundColor:"black"}} onClick={()=>{navigate('/pricing2', { state: {item} });}} >Buy Now</Button>
                 
               </Card.Body>
             </Card>

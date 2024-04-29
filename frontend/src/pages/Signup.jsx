@@ -47,7 +47,7 @@ export default function SignUp() {
                 <Col xs={10} sm={8} md={6} lg={4}>
                     <div className="registration-form">
                         <h2 className="text-center mb-4">Register</h2>
-                        <Form onSubmit={handleSubmit}>
+                        <Form onSubmit={handleSubmit} className='bg-black p-4 rounded'>
                             <Form.Group className="mb-3" controlId="firstname">
                                 <Form.Label>First Name</Form.Label>
                                 <Form.Control

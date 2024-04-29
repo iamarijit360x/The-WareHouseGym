@@ -21,7 +21,7 @@ export default function Footer() {
                         <p className='text-center'>Email: info@warhousegym.com</p>
                     </Col>
                    
-                    <Col xs={12} md={4} lg={4} className="text-center">
+                    <Col xs={12} md={4} lg={4} className="social text-center">
                         <h4>Follow Us</h4>
                         <div className="social-icons">
                             <a href="#"><i  className="fab fa-facebook-f"></i></a>

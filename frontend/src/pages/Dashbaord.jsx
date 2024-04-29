@@ -127,7 +127,7 @@ function Dashboard() {
      
    try{
   return (
-    <Container  fluid className=" bg-dark text-light align-content-center" style={{ minHeight: '100vh' }}>
+    <Container  fluid className="text-light align-content-center" style={{ minHeight: '100vh',backgroundColor:"#3f0715" }}>
       
      {loading?
         <Row>
@@ -144,7 +144,7 @@ function Dashboard() {
         </Row>
       : 
       <Row >
-        <p className='text-center display-4'>Welcome Back {userData.firstname}</p>
+        <p className='text-center display-4 '>Welcome Back <span className="fw-bolder">{userData.firstname}</span></p>
         <Col className='membership-card'>
 
         <div  className=' membership-container rounded border d-flex p-4 flex-column justify-content-center  mx-auto'>
@@ -176,12 +176,12 @@ function Dashboard() {
                     <><p className='text-success text-center'>Active</p>{/*<ProgressBar style={{ width: "15rem" }} max={100} now={percentage} />*/}
                       <p className='fs-4 text-center' >Days Remaining {info.daysLeft}</p></>
                     : <><p className='text-warning text-center'>Upcoming</p>
-                        <p className='fs-4 text-center'>.</p>
+                        <p className='fs-4 text-center'>...</p>
                       </>
                     }
 
                   {userData.membership.length > 1 &&
-                    <div className='d-flex justify-content-center'>
+                    <div className='d-flex justify-content-center gap-5'>
                       <Button disabled={buttonPrevStatus} onClick={() => handleMemberhipPrevNav()}>{'<'}</Button>
                       <Button disabled={buttonStatus} onClick={() => handleMemberhipNav()}>{'>'}</Button>
                     </div>
