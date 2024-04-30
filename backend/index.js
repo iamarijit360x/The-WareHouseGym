@@ -18,7 +18,7 @@ mongoose.connect(process.env.DB_URL);
 require('./config/passport');
 
 // Express middleware
-app.use(cors({ credentials: true, origin:process.env.FRONT_END_URL }));
+app.use(cors({ credentials: true, origin: process.env.FRONT_END_URL }));
 app.use(express.json());
 
 app.use(bodyParser.json());
