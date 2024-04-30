@@ -7,6 +7,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/authRoutes');
 //const MongoStore = require('connect-mongo');
+app.enable('trust proxy');
 
 
 require('dotenv').config();
@@ -28,7 +29,11 @@ app.use(session({
     secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: false,
-    
+    cookie:{
+        httpOnly:true,
+        sameSite:"none",
+        secure:true
+    }
 }));
 
 app.use(passport.initialize());
