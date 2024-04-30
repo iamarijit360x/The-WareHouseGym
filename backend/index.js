@@ -28,7 +28,10 @@ app.use(session({
     secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: false,
-
+    cookie: {
+        secure: true, // Make sure to set 'secure' to true if your app is served over HTTPS
+        sameSite: 'none', // Ensure cross-site cookies are allowed
+    }
     
 }));
 
