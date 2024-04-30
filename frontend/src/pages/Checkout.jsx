@@ -19,11 +19,11 @@ export default function Checkout() {
         e.preventDefault();
         try {
             console.log(products)
-            const response = await axios.post('http://localhost:3000/buy', products, { withCredentials: true });
+            const response = await axios.post(import.meta.env.VITE_BACKEND_URL+'/buy', products, { withCredentials: true });
             console.log(response)
             if(response.data.success)
            { 
-                axios.get("http://localhost:3000/profile", { withCredentials: true })
+                axios.get(import.meta.env.VITE_BACKEND_URL+"/profile", { withCredentials: true })
                .then((response)=>{
                 if(response.data)
                     dispatch(setUserData(response.data));})

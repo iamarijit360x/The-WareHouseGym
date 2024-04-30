@@ -28,7 +28,7 @@ export default function SignUp() {
             return;
         }
 
-        const response =await axios.post("http://localhost:3000/signup",formData)
+        const response =await axios.post(import.meta.env.VITE_BACKEND_URL+"/signup",formData)
         if(response.data.userExists)
         { 
             alert('USer Already Registered Please Log In');

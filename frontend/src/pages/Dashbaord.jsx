@@ -51,7 +51,7 @@ function Dashboard() {
     useEffect(() => {
       
        
-           axios.get("http://localhost:3000/profile", { withCredentials: true })
+           axios.get(import.meta.env.VITE_BACKEND_URL+"/profile", { withCredentials: true })
           .then((response)=>{
             if(response.data)
               dispatch(setUserData(response.data));})
@@ -153,7 +153,7 @@ function Dashboard() {
           <div>
             <p className='text-center fs-3'>Hey {userData.firstname} Looks Like You Don't have a Mermbership</p>
             <p className='text-center fs-5'>Let's Get One</p>
-            <Pricing/>
+            <div className='text-center'><Button href='/pricing1'>Buy a Membership</Button></div>
           </div>
       :
               <div>

@@ -17,7 +17,7 @@ export default function MyNavbar() {
   const handleLogout = async () => {
     try {
       axios
-        .get("http://localhost:3000/signout", { withCredentials: true })
+        .get( import.meta.env.VITE_BACKEND_URL+"/signout", { withCredentials: true })
         .then(console.log)
         .catch(console.error);
       dispatch(setAuthState(false));

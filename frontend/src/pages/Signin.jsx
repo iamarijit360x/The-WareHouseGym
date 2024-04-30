@@ -17,7 +17,7 @@ function SignInPage() {
   const handleSignIn = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/login', { email, password },{ withCredentials: true });
+      const response = await axios.post(import.meta.env.VITE_BACKEND_URL+'/login', { email, password },{ withCredentials: true });
 
       if (response.data.success) {
         
@@ -39,7 +39,7 @@ function SignInPage() {
           <Card className='bg-black text-light' style={{ borderRadius: '1rem', maxWidth: '350px' }}>
             <Card.Body className='p-4'>
               <h2 className="fw-bold mb-3 text-center">Sign in</h2>
-              <p className="text-muted mb-4 text-center">Please enter your login and password!</p>
+              <p className="mb-4 text-center text-white">Please enter your login and password!</p>
               
               <Form className="mb-4" onSubmit={handleSignIn} >
                 <Form.Group className="mb-3" controlId="email">
