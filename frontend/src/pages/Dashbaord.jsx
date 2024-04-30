@@ -153,7 +153,7 @@ function Dashboard() {
           <div>
             <p className='text-center fs-3'>Hey {userData.firstname} Looks Like You Don't have a Mermbership</p>
             <p className='text-center fs-5'>Let's Get One</p>
-            <div className='text-center'><Button href='/pricing1'>Buy a Membership</Button></div>
+            <div className='text-center'><Button onClick={()=>navigate('/pricing1')}>Buy a Membership</Button></div>
           </div>
       :
               <div>

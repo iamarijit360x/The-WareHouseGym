@@ -31,7 +31,7 @@ export default function MyNavbar() {
   return (
     <Navbar style={{ padding: 0 }} sticky="top" bg="black" className="px-4" expand="sm" data-bs-theme="dark" position-fixed>
       <Container>
-        <Navbar.Brand href="/" className="d-flex align-items-center">
+        <Navbar.Brand onClick={()=>navigate('/')} className="d-flex align-items-center">
           <img
             alt=""
             src={logo}
@@ -46,11 +46,11 @@ export default function MyNavbar() {
 
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="flex-grow-1 justify-content-around">
-            <Nav.Link href="/pricing1" className='' ><span className='test'>Price</span></Nav.Link>
-            <Nav.Link href="#" className='text-white '><span className='test'>Contact Us</span> </Nav.Link>
+            <Nav.Link onClick={()=>navigate('/pricing1')} className='' ><span className='test'>Price</span></Nav.Link>
+            <Nav.Link onClick={()=>navigate('/')} className='text-white '><span className='test'>Contact Us</span> </Nav.Link>
 
-            {authState ? <Nav.Link href="/dashboard" className='text-white'><span style={{ fontWeight: 'bold' }}>{name}</span><i class="fa-regular fa-user"></i></Nav.Link> : null}
-            {authState ? <Nav.Link onClick={() => handleLogout()} className='text-white'>Sign Out</Nav.Link> : <Nav.Link href="/signin" className='text-warning'><span style={{ fontWeight: 'bold' }}>Sign In</span></Nav.Link>}
+            {authState ? <Nav.Link onClick={()=>navigate('/dashboard')} className='text-white'><span style={{ fontWeight: 'bold' }}>{name}</span><i class="fa-regular fa-user"></i></Nav.Link> : null}
+            {authState ? <Nav.Link onClick={() => handleLogout()} className='text-white'>Sign Out</Nav.Link> : <Nav.Link onClick={()=>navigate('/signin')} className='text-warning'><span style={{ fontWeight: 'bold' }}>Sign In</span></Nav.Link>}
           </Nav>
         </Navbar.Collapse>
       </Container>
