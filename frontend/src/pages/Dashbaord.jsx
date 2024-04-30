@@ -20,30 +20,35 @@ function Dashboard() {
   const [info,setInfo]=useState({})
   let membership,expiryDate,startDate,daysLeft,percentage;
   let today=new Date();
-  
+  console.log(k)
   //membership Data Caluclations
   
    function handleMemberhipNav(){
+    setPrevButton(false)
       if(k===userData.membership.length-2)
-     { setButton(true)
+     { 
+       setButton(true)
        setK(k+1)
-    }
+     }
       else
        {
-        setPrevButton(false) 
         setK(k+1)
       }
     }
 
     function handleMemberhipPrevNav(){
+    
+      setButton(false)
       if(k===1)
-     { setK(k-1)
-       setPrevButton(true)}
-        
+      { 
+       setK(k-1)
+       setPrevButton(true)
+      }
+      
       else
       {  
         setK(k-1)
-        setButton(false)
+        
       }
     }
 
