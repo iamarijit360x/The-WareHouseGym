@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Form, Button, InputGroup } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom'; 
 import { useDispatch } from 'react-redux';
 import { setAuthState, setUserData } from '../utils/store/AuthSlice';
+import Spinner from 'react-bootstrap/Spinner';
+
 
 function SignInPage() {
   const [email, setEmail] = useState('');
@@ -13,19 +15,23 @@ function SignInPage() {
   const [error,setError]=useState(null)
   const [loginDisabled,setDisable]=useState(false)
   const [showPassword, setShowPassword] = useState(false);
+  const [loading,setLoading]=useState(false)
+
 
   const handleSignIn = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const response = await axios.post(import.meta.env.VITE_BACKEND_URL+'/login', { email, password },{ withCredentials: true });
-
+      
       if (response.data.success) {
-        
+        setLoading(false)
         dispatch(setAuthState(true));
         navigate('/dashboard');
       }
     } catch (error) {
       console.error(error.response.data);
+      setLoading(false)
       if(error.response.data.loginDisabled)
         setDisable(true)
       setError(error);
@@ -58,15 +64,13 @@ function SignInPage() {
                 </Button>
               </Form>
               <hr className="my-3" />
+              {loading && <div > <p className="text-warning mb-4 text-center">This Website Deployed on a free instance will spin down with inactivity, which can delay requests by 50 seconds or more.</p>
+                          <p p className="fw-bold text-warning mb-4 text-center">Please Wait😊</p>
+                          <div className='text-center pb-2'><Spinner animation="border" variant="info" /></div>
+              </div>}
               {error && <p className="text-danger mb-4 text-center">{error.response.data.message}</p>}
-              <Button size='md' className="mb-2 w-100" style={{ backgroundColor: '#dd4b39' }}>
-                <i className="fab fa-google me-2"></i>
-                Sign in with Google
-              </Button>
-              <Button size='md' className="w-100" style={{ backgroundColor: '#3b5998' }}>
-                <i className="fab fa-facebook-f me-2"></i>
-                Sign in with Facebook
-              </Button>
+              
+              
               <div className="mt-3 text-center">
                 Don't have an account? <Link to="/signup">Create one</Link>
               </div>

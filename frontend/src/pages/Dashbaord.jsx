@@ -5,6 +5,7 @@ import axios from 'axios';
 import { setAuthState, setUserData } from '../utils/store/AuthSlice';
 import Pricing from '../components/Pricing/Pricing';
 import { useLocation,useNavigate} from 'react-router-dom';
+
 import './styles.css'
 function Dashboard() {
   const navigate=useNavigate();

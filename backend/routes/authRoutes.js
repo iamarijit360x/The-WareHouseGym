@@ -5,6 +5,9 @@ const { login, signup, signout,buyMembership } = require('../controllers/authCon
 const {limiter}=require('../utils/loginAttemptLimiter');
 const {userAuthticated}=require('../controllers/Authmiddleware')
 const {expiryCheck}=require('../controllers/expiryChecker')
+
+
+
 router.post('/login',limiter,login);
 
 router.post('/signup',signup);
