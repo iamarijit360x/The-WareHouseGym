@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { setAuthState, setUserData } from '../utils/store/AuthSlice';
 import Pricing from '../components/Pricing/Pricing';
-import { useLocation } from 'react-router-dom';
+import { useLocation,useNavigate} from 'react-router-dom';
 import './styles.css'
 function Dashboard() {
-  
+  const navigate=useNavigate();
   const userData=useSelector(state=>state.auth.userData)
   const dispatch=useDispatch()
   const [k,setK]=useState(0)
@@ -136,15 +136,13 @@ function Dashboard() {
       
      {loading?
         <Row>
-        <div className=" d-flex justify-content-center gap-5" > 
+        <div className=" d-flex justify-content-center flex-wrap gap-5" > 
                <Spinner animation="grow" variant="primary" />
               <Spinner animation="grow" variant="secondary" />
               <Spinner animation="grow" variant="success" />
               <Spinner animation="grow" variant="danger" />
               <Spinner animation="grow" variant="warning" />
               <Spinner animation="grow" variant="info" />
-              <Spinner animation="grow" variant="light" />
-              <Spinner animation="grow" variant="dark" />
         </div>
         </Row>
       : 
@@ -158,7 +156,7 @@ function Dashboard() {
           <div>
             <p className='text-center fs-3'>Hey {userData.firstname} Looks Like You Don't have a Mermbership</p>
             <p className='text-center fs-5'>Let's Get One</p>
-            <div className='text-center'><Button onClick={()=>navigate('/pricing1')}>Buy a Membership</Button></div>
+            <div className='text-center'> <Button onClick={()=>navigate('/pricing1')}>Buy a Membership</Button> </div>
           </div>
       :
               <div>
@@ -174,7 +172,7 @@ function Dashboard() {
                   <>
                     <p className='text-danger'>Expired</p>
                     <p>Pack Expired {Math.floor((new Date() - new Date(info.expiryDate)) / 1000 / 3600 / 24)} days ago</p>
-                    <Pricing />
+                    <Button onClick={()=>navigate('/pricing1')}>Buy a Membership</Button>
                   </>
                   :
                   userData.membership[k].status ?

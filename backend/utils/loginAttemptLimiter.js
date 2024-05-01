@@ -5,6 +5,6 @@ exports.limiter = rateLimit({
   handler:(req,res,err)=>{
     const resetTime = (req.rateLimit.resetTime - Date.now()) / 1000; // Convert milliseconds to seconds
     const remainingTime = Math.ceil(resetTime); 
-    return res.status(429).json({message:"Two Many Attempts Please try again later",loginDisabled:true,remainingTime:remainingTime})
+    return res.status(429).json({message:"Too Many Attempts Please Try Again Later",loginDisabled:true,remainingTime:remainingTime})
   }
 });

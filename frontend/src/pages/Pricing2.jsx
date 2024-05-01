@@ -19,10 +19,10 @@ export default function Pricing2() {
     {id:"p0002",price:200,name:"Trademil",type:"trademil",description:"🏃‍♀️ Treadmill Access: Take your cardio game to the next level with unrestricted access to our state-of-the-art treadmills, perfect for burning calories and boosting endurance."}
     ]
    
-    useEffect(()=>{
-
-    },[])
-
+    useEffect(() => {
+        window.scrollTo(0, 0)
+      }, [])
+   
     function handleAdd(type){
         if(type==='personal_training')
         {
