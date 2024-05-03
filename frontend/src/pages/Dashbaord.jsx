@@ -100,7 +100,9 @@ function Dashboard() {
                 percentage:percentage,
                 info:membership.status,
                 trademil:membership.trademil,
-                personal_training:membership.personal_training
+                personal_training:membership.personal_training,
+              
+                
               }
               setInfo(obj)
               console.log(info)
@@ -112,9 +114,11 @@ function Dashboard() {
               membership=userData.OrderHistory[userData.OrderHistory.length-1];
               expiryDate=new Date(membership.end_date)
               startDate=new Date(membership.start_date);
+              let expDays=(Math.floor((new Date() - new Date(expiryDate)) / 1000 / 3600 / 24))
               const obj={
                 expiryDate:expiryDate,
                 startDate:startDate,
+                expDays:expDays
                 
               }
               setInfo(obj)
@@ -170,15 +174,28 @@ function Dashboard() {
                 <p className=' text-center fs-4'>Personal Training:{info.personal_training?"Yes":"No"}</p>
                 
                 {expired?
-                  <>
+                  <div className='text-center'>  
                     <p className='text-danger'>Expired</p>
-                    <p>Pack Expired {Math.floor((new Date() - new Date(info.expiryDate)) / 1000 / 3600 / 24)} days ago</p>
+                    <p className=' text-center fs-4'>Pack Expired {info.expDays===0 ? "Today": `${info.expDays} Days ago`}</p>
                     <Button onClick={()=>navigate('/pricing1')}>Buy a Membership</Button>
-                  </>
+                  </div>
                   :
                   userData.membership[k].status ?
                     <><p className='text-success text-center'>Active</p>{/*<ProgressBar style={{ width: "15rem" }} max={100} now={percentage} />*/}
-                      <p className='fs-4 text-center' >Days Remaining {info.daysLeft}</p></>
+                      {info.daysLeft <=10 ?
+                      
+                      <div className='text-center'>
+                        <p className='fs-4 text-center text-danger'>Days Remaining {info.daysLeft}</p>
+                        <Button className="text-center"onClick={()=>navigate('/pricing1')}>Buy Membership Now</Button>
+                      </div>
+                      :
+                      <div className='text-center'>
+                        <p className='fs-4 text-center text-warning'>Days Remaining {info.daysLeft}</p>
+                       
+                      </div>
+
+                      }
+                      </>
                     : <><p className='text-warning text-center'>Upcoming</p>
                         <p className='fs-4 text-center'>...</p>
                       </>

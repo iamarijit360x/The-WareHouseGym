@@ -1,7 +1,8 @@
 // routes/auth.js
 const express = require('express');
 const router = express.Router();
-const { login, signup, signout,buyMembership } = require('../controllers/authController');
+const { login, signup, signout } = require('../controllers/authController');
+const {buyMembership}=require('../controllers/purchaseMembership')
 const {limiter}=require('../utils/loginAttemptLimiter');
 const {userAuthticated}=require('../controllers/Authmiddleware')
 const {expiryCheck}=require('../controllers/expiryChecker')
