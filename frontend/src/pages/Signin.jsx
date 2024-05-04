@@ -72,7 +72,7 @@ function SignInPage() {
               
               
               <div className="mt-3 text-center">
-                Don't have an account? <Link to="/signup">Create one</Link>
+                Don't have an account? <Link to="/signup1">Create one</Link>
               </div>
             </Card.Body>
           </Card>

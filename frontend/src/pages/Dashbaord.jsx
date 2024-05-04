@@ -21,7 +21,7 @@ function Dashboard() {
   const [info,setInfo]=useState({})
   let membership,expiryDate,startDate,daysLeft,percentage;
   let today=new Date();
-  console.log(k)
+ 
   //membership Data Caluclations
   
    function handleMemberhipNav(){
@@ -62,12 +62,11 @@ function Dashboard() {
             if(response.data)
               dispatch(setUserData(response.data));})
           .then(()=>{
-            console.log(userData)
+           
             
 
           })
           .catch((err)=>{
-            console.error("Error fetching data:", err);
             dispatch(setAuthState(false));
             setLoading(false);})
          
@@ -105,7 +104,7 @@ function Dashboard() {
                 
               }
               setInfo(obj)
-              console.log(info)
+       
               
             }
             else if( userData.OrderHistory.length){

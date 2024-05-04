@@ -1,18 +1,32 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
 
+import { useLocation,useNavigate } from "react-router-dom";
+import Spinner from 'react-bootstrap/Spinner';
+
+
+
+
+  
 import axios from 'axios';
-export default function SignUp() {
+export default function SignUp2() {
+
+    const { state } = useLocation();
+    const { email } = state;
+    const [success,setSuccess]=useState(false)
     const navigator=useNavigate()
+    const [error,setError]=useState(null)
+    const [buttonDisabled,setDisable]=useState(false)
+
     const [formData, setFormData] = useState({
-        email: '',
+        email: email,
         password: '',
         confirmPassword: '',
         phoneNumber: '',
         address: '',
         firstname: '',
-        lastname: ''
+        lastname: '',
+        otp:''
     });
 
     const handleChange = (e) => {
@@ -24,26 +38,35 @@ export default function SignUp() {
         e.preventDefault();
         
         if(formData.password !== formData.confirmPassword) {
-            alert("Password and Confirm Password must match!");
+            setError("Password and Confirm Password must match!");
             return;
         }
-
-        const response =await axios.post(import.meta.env.VITE_BACKEND_URL+"/signup",formData)
-        if(response.data.userExists)
-        { 
-            alert('USer Already Registered Please Log In');
-            navigator('/signin')
-    
+        try {
+            const response =await axios.post(import.meta.env.VITE_BACKEND_URL+"/signup",formData)
+            if(response.data.success)
+            { 
+                setError(false)
+                setSuccess(true);
+                setTimeout(()=>navigator('/signin'),3000)
+                
+        
+            }
+            else
+            {
+               setError("Incorrect OTP")
+            }
+            
+        } catch (error) {
+            console.log(error)
+            setError(error.response.data.message)
+            setDisable(true)
         }
-        else if(response.data.success)
-        {
-            navigator('/signin')
-        }
+       
     };
 
     return (
-        <Container fluid className="bg-dark text-light" style={{ minHeight: '100vh' }}>
-            <Row className="justify-content-center align-items-center vh-100">
+        <Container fluid className="bg-dark text-light p-4">
+            <Row className="justify-content-center align-items-center">
                 <Col xs={10} sm={8} md={6} lg={4}>
                     <div className="registration-form">
                         <h2 className="text-center mb-4">Register</h2>
@@ -71,12 +94,14 @@ export default function SignUp() {
                                 <Form.Label>Email address</Form.Label>
                                 <Form.Control
                                     type="email"
-                                    placeholder="Enter email"
+                                    placeholder={email}
                                     value={formData.email}
                                     onChange={handleChange}
-                                    required
+                                    disabled
                                 />
                             </Form.Group>
+                            
+                            
                             <Form.Group className="mb-3" controlId="password">
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control
@@ -97,9 +122,27 @@ export default function SignUp() {
                                     required
                                 />
                             </Form.Group>
-                            <Button variant="primary" type="submit" className="w-100">
+
+                            <Form.Group className="mb-3" controlId="otp">
+                                <Form.Label>Otp</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Enter Otp"
+                                    value={formData.otp}
+                                    onChange={handleChange}
+                                    
+                                />
+                            </Form.Group>
+                            <Button disabled={buttonDisabled} variant="primary" type="submit" className="w-100">
                                 Register
                             </Button>
+                            {error && <p className="text-danger mb-4 text-center">{error}</p>}
+                            {success && <><p className="text-success mb-4 text-center">Account Created Successfully</p>
+                            <div className='text-center pb-2'>
+                                <Spinner animation="border" variant="success" />
+                                <p className="text-success mb-4 text-center">Redirecting to Login</p>
+                            
+                            </div></>}
                         </Form>
                     </div>
                 </Col>

@@ -1,4 +1,5 @@
 const mongoose=require('mongoose');
+const { verifyPassword } = require('../utils/passWordHash');
 
 
 const membershipSchema = new mongoose.Schema({
@@ -19,7 +20,9 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     membership: [membershipSchema], // Array of nested membership schemas
     memberShipStatus: Boolean,
-    OrderHistory:[membershipSchema]
+    OrderHistory:[membershipSchema],
+    verified:Boolean,
+    OTP:Number
 });
 
 const UserModel=mongoose.model("User",userSchema)
