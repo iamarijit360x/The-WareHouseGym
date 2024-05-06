@@ -3,7 +3,8 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 import axios from 'axios';
-
+import logo from "../assets/gymlogo.png";
+import './styles.css'
 export default function SignUp1() {
     const navigate=useNavigate()
     const [email,setEmail]=useState('') 
@@ -62,18 +63,18 @@ export default function SignUp1() {
     };
 
     return (
-        <Container fluid className="bg-dark text-light" style={{ minHeight: '100vh' }}>
-            <Row className="justify-content-center align-items-center vh-100">
-                <Col xs={10} sm={8} md={6} lg={4}>
+        <Container fluid className="bg-dark text-light d justify-content-center align-content-center background-signup1" style={{ minHeight: '100vh' }}>
+            <Row className="justify-content-center align-items-center ">
+                <Col xs={10} sm={8} md={6} lg={4} style={{minWidth:"35%"}}>
                     <div className="registration-form">
                         
-                        <Form onSubmit={handleSubmit} className='bg-black p-4 rounded'>
-                            
-                  
-                            
+                        <Form onSubmit={handleSubmit} className='bg-black p-4 rounded' >
+                            <div className='text-center '><img width={"90px"} classname='img-fluid' src={logo}/></div>
+                            <p className='text-center fs-4 fw-bold p-0'>Welcome to The Warehouse Gym</p>
+                            <p className="text-center info-signup">To create a account fill in your email below and we"ll send you an email with a OTP to get you started </p>
                            
                             <Form.Group className="mb-3" controlId="confirmPassword">
-                                <Form.Label>Email</Form.Label>
+                                <Form.Label>Email Address</Form.Label>
                                 <Form.Control
                                     type="text"
                                     placeholder="Email"
@@ -83,8 +84,8 @@ export default function SignUp1() {
                                 />
                             </Form.Group>
                             <div className='text-center p-4'>
-                                <Button disabled={disable} variant="primary" type="submit" className="w-20">
-                                    Send OTP
+                                <Button  variant="info" disabled={disable}  type="submit" className="w-20">
+                                    <p className="fw-bolder p-0 m-0">Send OTP</p>
                                 </Button>
                             </div>
                             <div className='text-center'>
@@ -98,12 +99,13 @@ export default function SignUp1() {
                                 {otp && <p className="text-danger mb-4 text-center">Sorry Unable to send OTP cause your otp is {otp}</p>}
                                 {emailStatus && 
                                 <div > 
-                                    <p className="text-warning mb-4 text-center">OTP Sent to {email}</p>
+                                    <p className="text-warning mb-4 text-center">OTP Sent to {email}.Please Check The Spam Folder </p>
                                      <div className='text-center pb-2'><Spinner animation="border" variant="info" /></div>
                                 </div>}
                                 {
-                                    buttonStatus && <Button onClick={()=>navigate('/signup2', { state:{email} })}>Next</Button>
+                                    buttonStatus && <Button  onClick={()=>navigate('/signup2', { state:{email} })}>Next</Button>
                                 }
+                                <p className='text-warning fw-bolder'>**Please check your spam folder for the OTP.</p>
                             </div>
                             
                         </Form>

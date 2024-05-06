@@ -7,3 +7,10 @@
    background:linear-gradient(50deg,rgb(38, 6, 6),black);
 }
 
+.info-signup{
+color: bisque;
+}
+
+.background-signup1{
+   background:linear-gradient(45deg,rgb(36, 7, 7),rgb(36, 34, 34));
+ }

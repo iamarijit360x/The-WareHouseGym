@@ -1,11 +1,12 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col,Button } from 'react-bootstrap';
 import './Home.css'; // Import your CSS file where you define background styles
 import { useState,useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 export default function WelcomeScreen() {
 
   const [isSmallScreen, setIsSmallScreen] = useState(false);
-
+  const navigate=useNavigate()
   useEffect(() => {
     const handleResize = () => {
       setIsSmallScreen(window.innerWidth <= 768); // Check if screen width is less than or equal to 768px
@@ -28,7 +29,10 @@ export default function WelcomeScreen() {
             
             <Col >
                  <p className='text-center tag-line'>"Push Your Limits, Find Your Strength"</p>
+                 <div className='text-center'><button onClick={()=>{navigate('/signup1')}}className='glowing-btn'><span class='glowing-txt'>Start</span></button></div>
             </Col>
+            
+           
           </Row>
          
         
