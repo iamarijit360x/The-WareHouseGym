@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect} from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
 import { useLocation,useNavigate } from "react-router-dom";
 import Spinner from 'react-bootstrap/Spinner';
+import logo from "../assets/gymlogo.png";
+import './styles.css'
+
 
 
 
@@ -10,16 +13,15 @@ import Spinner from 'react-bootstrap/Spinner';
   
 import axios from 'axios';
 export default function SignUp2() {
-
     const { state } = useLocation();
-    const { email } = state;
+    const { email } = state || {};
     const [success,setSuccess]=useState(false)
     const navigator=useNavigate()
     const [error,setError]=useState(null)
     const [buttonDisabled,setDisable]=useState(false)
 
     const [formData, setFormData] = useState({
-        email: email,
+        email: email || "",
         password: '',
         confirmPassword: '',
         phoneNumber: '',
@@ -28,6 +30,14 @@ export default function SignUp2() {
         lastname: '',
         otp:''
     });
+
+
+    useEffect(() => {
+        if (!email) {
+            navigator('/signup1'); 
+        }
+    }, [email, navigator]);
+
 
     const handleChange = (e) => {
         const { id, value } = e.target;
@@ -65,12 +75,17 @@ export default function SignUp2() {
     };
 
     return (
-        <Container fluid className="bg-dark text-light p-4">
+        <Container fluid className="background-signup1 text-light p-4">
             <Row className="justify-content-center align-items-center">
                 <Col xs={10} sm={8} md={6} lg={4}>
                     <div className="registration-form">
-                        <h2 className="text-center mb-4">Register</h2>
+                   
+                        
                         <Form onSubmit={handleSubmit} className='bg-black p-4 rounded'>
+                            <div className='text-center '><img width={"90px"} classname='img-fluid' src={logo}/></div>
+                            <p className='text-center fs-4 fw-bold p-0'>Welcome to The Warehouse Gym</p>
+                            <p className="text-center info-signup">Fill Up The Details </p>
+                           
                             <Form.Group className="mb-3" controlId="firstname">
                                 <Form.Label>First Name</Form.Label>
                                 <Form.Control
@@ -98,6 +113,7 @@ export default function SignUp2() {
                                     value={formData.email}
                                     onChange={handleChange}
                                     disabled
+                                    required
                                 />
                             </Form.Group>
                             
@@ -124,7 +140,7 @@ export default function SignUp2() {
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="otp">
-                                <Form.Label>Otp</Form.Label>
+                                <Form.Label>OTP</Form.Label>
                                 <Form.Control
                                     type="text"
                                     placeholder="Enter Otp"
@@ -133,16 +149,19 @@ export default function SignUp2() {
                                     
                                 />
                             </Form.Group>
-                            <Button disabled={buttonDisabled} variant="primary" type="submit" className="w-100">
-                                Register
-                            </Button>
+                            <div>
+                                <Button disabled={buttonDisabled} variant="info" type="submit" className="w-100">
+                                <p className="fw-bolder p-0 m-0">Create Account</p>
+                                </Button>
+                            </div>
                             {error && <p className="text-danger mb-4 text-center">{error}</p>}
-                            {success && <><p className="text-success mb-4 text-center">Account Created Successfully</p>
-                            <div className='text-center pb-2'>
-                                <Spinner animation="border" variant="success" />
-                                <p className="text-success mb-4 text-center">Redirecting to Login</p>
-                            
-                            </div></>}
+                            {success && 
+                                <div className='text-center pb-2'>
+                                    <Spinner animation="border" variant="success" />
+                                    <p className="text-success fw-bold mb-4 text-center">Account Created Successfully Redirecting to Login</p>
+                                
+                                </div>
+                            }
                         </Form>
                     </div>
                 </Col>

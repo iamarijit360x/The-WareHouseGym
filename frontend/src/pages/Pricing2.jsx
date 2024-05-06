@@ -10,7 +10,7 @@ export default function Pricing2() {
 
     const { state } = useLocation();
     const navigate=useNavigate()
-    const { item } = state;
+    const { item } = state ||{item:""}; ;
 
     const [products,setProducts]=useState([item])
     const [treadmillButton,settreadmillButton]=useState(true)
@@ -18,7 +18,10 @@ export default function Pricing2() {
     const data=[{id:"p0001",price:3000,name:"Personal Training",type:"personal_training",description:"🌟 Personal Training: Maximize your results with customized workouts tailored to your unique needs and goals. Our certified trainers will motivate and guide you to surpass your limits"},
     {id:"p0002",price:200,name:"Trademil",type:"trademil",description:"🏃‍♀️ Treadmill Access: Take your cardio game to the next level with unrestricted access to our state-of-the-art treadmills, perfect for burning calories and boosting endurance."}
     ]
-   
+    useEffect(() => {
+        if(!item)
+            navigate('/pricing1')
+      }, [navigate,item])
     useEffect(() => {
         window.scrollTo(0, 0)
       }, [])

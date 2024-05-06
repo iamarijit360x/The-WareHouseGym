@@ -13,9 +13,9 @@ async function sendEmail(mailOptions) {
   try {
     // Send email using the transporter
     await transporter.sendMail(mailOptions);
-    console.log('Email sent successfully');
+    //console.log('Email sent successfully');
   } catch (error) {
-    console.error('Error sending email:', error);
+   // console.error('Error sending email:', error);
     throw error; // Throw the error to be handled by the caller
   }
 }

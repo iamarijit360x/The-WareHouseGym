@@ -8,13 +8,18 @@ exports.userAuthticated=function (req,res,next)
 }
 
 exports.verifyOtp= async (req,res,next)=>{
+    try{
     const {otp,email}=req.body;
     const UserEmail=await Otp.findOne({email:email})
-    console.log(UserEmail)
     if(UserEmail.otp===otp){
         await UserEmail.deleteOne()
         next()
     }
     else
         res.json({otpVerify:false})
+    }
+    catch(err){
+        console.error("Error occurred during signup:", error);
+        return res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
 }

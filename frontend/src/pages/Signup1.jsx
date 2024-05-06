@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 import axios from 'axios';
 import logo from "../assets/gymlogo.png";
 import './styles.css'
+
+
 export default function SignUp1() {
     const navigate=useNavigate()
     const [email,setEmail]=useState('') 
@@ -14,7 +16,6 @@ export default function SignUp1() {
     const [otp,setOtp]=useState()
     const [buttonStatus,setButton]=useState(false)
     const[disable,setDisable]=useState(false)
-
     const handleChange = (e) => {
         const value= e.target.value;
         setEmail(value);
@@ -29,13 +30,15 @@ export default function SignUp1() {
         const response =await axios.post(import.meta.env.VITE_BACKEND_URL+"/generateotp",{email})
         setLoading(false)
         //const response={data:{userExists:false,otpGenration:true}};
+        setButton(false)
         
         if(response.data.otpGenration)
         {
+           
             setLoading(false)
             setEmailStatus(true)
             
-            setTimeout(()=>navigate('/signup2', { state:{email} }),4000)
+            setTimeout(()=>navigate('/signup2', { state:{email} }),2000)
         }
         
        } catch (error) {
@@ -76,7 +79,7 @@ export default function SignUp1() {
                             <Form.Group className="mb-3" controlId="confirmPassword">
                                 <Form.Label>Email Address</Form.Label>
                                 <Form.Control
-                                    type="text"
+                                    type="email"
                                     placeholder="Email"
                                     value={email}
                                     onChange={handleChange}
@@ -95,19 +98,23 @@ export default function SignUp1() {
                                     <p className="fw-bold text-warning mb-4 text-center">Please Wait😊</p>
                                      <div className='text-center pb-2'><Spinner animation="border" variant="info" /></div>
                                 </div>}
-                                {error && <><p className="text-danger fs-5 fw-bold mb-4 text-center">{error}</p><div className='text-center pb-2'></div></>}
-                                {otp && <p className="text-danger mb-4 text-center">Sorry Unable to send OTP cause your otp is {otp}</p>}
+                                {error && <><p className="text-danger  fw-bold mb-4 text-center">{error}</p><div className='text-center pb-2'></div></>}
+                                {otp && <p className="text-danger mb-4 text-center">Sorry Unable to send OTP.Your OTP is <span className='fw-bolder'>{otp}</span></p>}
                                 {emailStatus && 
                                 <div > 
-                                    <p className="text-warning mb-4 text-center">OTP Sent to {email}.Please Check The Spam Folder </p>
-                                     <div className='text-center pb-2'><Spinner animation="border" variant="info" /></div>
+                                     <div className='text-center p-0'><Spinner animation="border" variant="info" /></div>
+                                     <p className="text-success dsfw-bold mb-4 text-center">OTP Sending to {email}</p>
+                                    
                                 </div>}
                                 {
                                     buttonStatus && <Button  onClick={()=>navigate('/signup2', { state:{email} })}>Next</Button>
                                 }
                                 <p className='text-warning fw-bolder'>**Please check your spam folder for the OTP.</p>
                             </div>
-                            
+                                <hr className="my-3" />
+                                <div className="mt-3 text-center">
+                                    Already have an account? <Link to="/signin">Sign in</Link>
+                                </div>
                         </Form>
                     </div>
                 </Col>

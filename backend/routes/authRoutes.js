@@ -43,7 +43,7 @@ router.post('/generateotp',limiter, async (req,res)=>{
      try {
         // Find and delete the OTP document where the email matches the specified value
         await Otp.findOneAndDelete({ email: email });
-        console.log('OTP deleted successfully');
+       // console.log('OTP deleted successfully');
       } catch (error) {
         console.error('Error deleting OTP:', error);
       }

@@ -5,7 +5,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setAuthState, setUserData } from '../utils/store/AuthSlice';
 import Spinner from 'react-bootstrap/Spinner';
-
+import './styles.css'
+import logo from "../assets/gymlogo.png";
 
 function SignInPage() {
   const [email, setEmail] = useState('');
@@ -39,19 +40,23 @@ function SignInPage() {
   };
 
   return (
-    <Container fluid className="bg-dark text-light" style={{ minHeight: '100vh' }}>
-      <Row className='justify-content-center align-items-center' style={{ minHeight: '100vh' }}>
-        <Col xs={12} md={12} lg={6} className='d-flex justify-content-center'>
-          <Card className='bg-black text-light' style={{ borderRadius: '1rem', maxWidth: '350px' }}>
+    <Container fluid className="background-signup1 text-light" style={{ minHeight: '100vh' }}>
+      <Row className='justify-content-center align-items-center ' style={{ minHeight: '100vh' }}>
+        <Col xs={12} md={12} lg={6} className='d-flex justify-content-center my-5'>
+          <Card className='bg-black text-light' style={{ borderRadius: '1rem', minwidth: '25vw',maxWidth:"30rem" }}>
             <Card.Body className='p-4'>
-              <h2 className="fw-bold mb-3 text-center">Sign in</h2>
-              <p className="mb-4 text-center text-white">Please enter your login and password!</p>
-              
+            <p className='text-center fs-4 fw-bold p-0'>The Warehouse Gym</p>
+             
+              <div className='text-center w-100 '><img width={"90px"} classname='img-fluid' src={logo}/></div>
+               
+              <h4 className="fw-bold mb-3 text-center">Sign in</h4>
               <Form className="mb-4" onSubmit={handleSignIn} >
                 <Form.Group className="mb-3" controlId="email">
+                  <Form.Label>Email Address</Form.Label>
                   <Form.Control type="email" placeholder="Enter email" size="md" className="bg-dark text-light" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="password">
+                <Form.Label>Password</Form.Label>
                   <InputGroup>
                     <Form.Control  id="password" type={showPassword?"text":"password"} placeholder="Password" size="md" className="bg-dark text-light" value={password} onChange={(e) => setPassword(e.target.value)} required />
                     <InputGroup.Text className="bg-dark text-light">
@@ -68,7 +73,7 @@ function SignInPage() {
                           <p p className="fw-bold text-warning mb-4 text-center">Please Wait😊</p>
                           <div className='text-center pb-2'><Spinner animation="border" variant="info" /></div>
               </div>}
-              {error && <p className="text-danger mb-4 text-center">{error.response.data.message}</p>}
+              {error  && <p className="text-danger mb-4 fw-bold text-center">{error.response.data.message}</p>}
               
               
               <div className="mt-3 text-center">

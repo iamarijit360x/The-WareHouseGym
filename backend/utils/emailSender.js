@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-console.log( process.env.EMAIL)
+//console.log( process.env.EMAIL)
 function sendEmail(mailOptions) {
   return new Promise((resolve, reject) => {
     transporter.sendMail(mailOptions, (error, info) => {
