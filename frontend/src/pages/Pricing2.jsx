@@ -22,9 +22,7 @@ export default function Pricing2() {
         if(!item)
             navigate('/pricing1')
       }, [navigate,item])
-    useEffect(() => {
-        window.scrollTo(0, 0)
-      }, [])
+
    
     function handleAdd(type){
         if(type==='personal_training')
@@ -102,7 +100,7 @@ export default function Pricing2() {
                
     
             <Row lg={12}>
-                <Col>
+                <Col style={{fontFamily:"monospace"}}>
                     <Card bg='black' text='white' >
                     <Card.Body  >
                         <div >
@@ -110,12 +108,12 @@ export default function Pricing2() {
                             <p className="p-5 rounded-2 py-2" style={{border:"1px solid white",}} key={index}>{index+1}. {item.name}     Rs.{item.price}</p>
                         ))}
                         </div>
-                        <p className="fw-bold fs-6 text-center">Subtotal:{products.reduce((total,x)=>total+x.price,0)}</p>
+                        <p className="fw-bold fs-6 text-center">Subtotal:₹ {products.reduce((total,x)=>total+x.price,0)}</p>
                     </Card.Body>
 
                     </Card>
                     
-                   <div className="text-center"> <Button onClick={()=>{navigate('/checkout', { state: {products} });}}>Go to Checkout</Button></div>
+                   <div className="text-center p-3"> <Button onClick={()=>{navigate('/checkout', { state: {products} });}}>Go to Checkout</Button></div>
                 </Col>
 
             </Row>

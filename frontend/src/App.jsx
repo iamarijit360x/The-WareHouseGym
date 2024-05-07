@@ -6,13 +6,14 @@ import SignInPage from "./pages/Signin";
 import SignUp1 from "./pages/Signup1";
 import SignUp2 from "./pages/Signup2";
 import UnAuth from "./pages/UnAuth";
-import { BrowserRouter, Routes, Route,Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route,Navigate,useLocation} from 'react-router-dom';
 import { useState,useEffect} from "react";
 import { useSelector } from "react-redux";
 import Checkout from "./pages/Checkout";
 import Footer from "./components/Footer/Footer";
 import Pricing2 from "./pages/Pricing2";
 import Pricing from "./components/Pricing/Pricing";
+import ScrollToTop from "./components/ScrollToTop"
 function App() {
 
  
@@ -22,8 +23,9 @@ const authState=useSelector(state=>state.auth.authState)
   return (
     <BrowserRouter>
     <Navbar/>
-    
+    <ScrollToTop/>
       <Routes>
+        
         
           <Route  path='/' element={<Home/>}/>
           <Route path='/signin' element={authState ? <Navigate to="/dashboard" /> : <SignInPage />} />

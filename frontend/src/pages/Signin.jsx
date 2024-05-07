@@ -28,7 +28,8 @@ function SignInPage() {
       if (response.data.success) {
         setLoading(false)
         dispatch(setAuthState(true));
-        navigate('/dashboard');
+        setTimeout(()=>{navigate('/dashboard')},4000)
+        //navigate('/dashboard');
       }
     } catch (error) {
       console.error(error.response.data);
@@ -43,7 +44,7 @@ function SignInPage() {
     <Container fluid className="background-signup1 text-light" style={{ minHeight: '100vh' }}>
       <Row className='justify-content-center align-items-center ' style={{ minHeight: '100vh' }}>
         <Col xs={12} md={12} lg={6} className='d-flex justify-content-center my-5'>
-          <Card className='bg-black text-light' style={{ borderRadius: '1rem', minwidth: '25vw',maxWidth:"30rem" }}>
+          <Card className='bg-black text-light' style={{ borderRadius: '1rem',width:"25em"}}>
             <Card.Body className='p-4'>
             <p className='text-center fs-4 fw-bold p-0'>The Warehouse Gym</p>
              
@@ -69,7 +70,7 @@ function SignInPage() {
                 </Button>
               </Form>
               <hr className="my-3" />
-              {loading && <div > <p className="text-warning mb-4 text-center">This Website Deployed on a free instance will spin down with inactivity, which can delay requests by 50 seconds or more.</p>
+              {loading || false  && <div > <p className="text-warning mb-4 text-center">This Website Deployed on a free instance will spin down with inactivity, which can delay requests by 50 seconds or more.</p>
                           <p p className="fw-bold text-warning mb-4 text-center">Please Wait😊</p>
                           <div className='text-center pb-2'><Spinner animation="border" variant="info" /></div>
               </div>}
