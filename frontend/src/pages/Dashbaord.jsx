@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Container,ProgressBar, Row, Col, Card, Button,Spinner } from 'react-bootstrap';
+import { Container,Row, Col, Button,Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { setAuthState, setUserData } from '../utils/store/AuthSlice';
-import Pricing from '../components/Pricing/Pricing';
-import { useLocation,useNavigate} from 'react-router-dom';
-import sadImg from '../assets/sad.png'
+import { useNavigate} from 'react-router-dom';
 import './styles.css'
-import ChangePassword from '../components/ChangePassword';
 import Menu from '../components/Menu';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog } from '@fortawesome/free-solid-svg-icons';
 function Dashboard() {
   const navigate=useNavigate();
   const userData=useSelector(state=>state.auth.userData)
