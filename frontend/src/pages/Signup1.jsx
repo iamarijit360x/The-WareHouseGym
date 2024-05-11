@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button,Card } from 'react-bootstrap';
 import { useNavigate,Link } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 import axios from 'axios';
@@ -66,11 +66,12 @@ export default function SignUp1() {
     };
 
     return (
-        <Container fluid className="bg-dark text-light d justify-content-center align-content-center background-signup1" style={{ minHeight: '100vh' }}>
-            <Row className="justify-content-center align-items-center ">
-                <Col xs={10} sm={8} md={6} lg={4} style={{minWidth:"35%"}}>
-                    <div className="registration-form">
-                        
+        <Container fluid className="bg-dark text-light background-signup1" style={{ minHeight: '100vh' }}>
+            <Row className="justify-content-center align-items-center " style={{ minHeight: '100vh' }}>
+                <Col xs={12} md={12} lg={6} className='d-flex justify-content-center my-5'>
+                   
+                    <Card className='bg-black text-light' style={{ borderRadius: '1rem',width:"30em"}}>
+                        <Card.Body className='p-4'>
                         <Form onSubmit={handleSubmit} className='bg-black p-4 rounded' >
                             <div className='text-center '><img width={"90px"} classname='img-fluid' src={logo}/></div>
                             <p className='text-center fs-4 fw-bold p-0'>Welcome to The Warehouse Gym</p>
@@ -113,10 +114,12 @@ export default function SignUp1() {
                             </div>
                                 <hr className="my-3" />
                                 <div className="mt-3 text-center">
-                                    Already have an account? <Link to="/signin">Sign in</Link>
+                                    Already have an account? <Link className='text-warning fw-bold font' to="/signin">Sign in</Link>
                                 </div>
                         </Form>
-                    </div>
+                        </Card.Body>
+                    </Card>
+                  
                 </Col>
             </Row>
         </Container>

@@ -1,5 +1,5 @@
 import React, { useState,useEffect} from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button,Card } from 'react-bootstrap';
 
 import { useLocation,useNavigate } from "react-router-dom";
 import Spinner from 'react-bootstrap/Spinner';
@@ -75,10 +75,11 @@ export default function SignUp2() {
     };
 
     return (
-        <Container fluid className="background-signup1 text-light p-4">
-            <Row className="justify-content-center align-items-center">
-                <Col xs={10} sm={8} md={6} lg={4}>
-                    <div className="registration-form">
+        <Container fluid className="px-0 py-4 bg-dark text-light background-signup1" style={{ minHeight: '100vh' }}>
+            <Row className="justify-content-center align-items-center" style={{ minHeight: '100vh',maxWidth:"98vw" }}>
+                <Col xs={10} sm={8} md={6} lg={4} style={{}}>
+                      <Card className='bg-black text-light' style={{ borderRadius: '1rem',maxWidth:"35em"}}>
+                        <Card.Body className='p-4'>
                    
                         
                         <Form onSubmit={handleSubmit} className='bg-black p-4 rounded'>
@@ -154,16 +155,17 @@ export default function SignUp2() {
                                 <p className="fw-bolder p-0 m-0">Create Account</p>
                                 </Button>
                             </div>
-                            {error && <p className="text-danger mb-4 text-center">{error}</p>}
+                            {error && <p className="p-4 fw-bold fs-5 font-monospace text-danger mb-4 text-center">{error}</p>}
                             {success && 
-                                <div className='text-center pb-2'>
+                                <div className='text-center p-4'>
                                     <Spinner animation="border" variant="success" />
-                                    <p className="text-success fw-bold mb-4 text-center">Account Created Successfully Redirecting to Login</p>
+                                    <p className="p-4 fw-bold fs-5 font-monospace text-success mb-4 text-center">Account Created Successfully Redirecting to Login</p>
                                 
                                 </div>
                             }
                         </Form>
-                    </div>
+                        </Card.Body>
+                    </Card>
                 </Col>
             </Row>
         </Container>

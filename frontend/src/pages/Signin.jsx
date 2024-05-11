@@ -78,7 +78,7 @@ function SignInPage() {
               
               
               <div className="mt-3 text-center">
-                Don't have an account? <Link to="/signup1">Create one</Link>
+                Don't have an account? <Link className='text-warning fw-bold font' to="/signup1">Create one</Link>
               </div>
             </Card.Body>
           </Card>

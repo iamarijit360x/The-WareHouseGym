@@ -11,7 +11,7 @@ const generateOTP=require('../utils/randomGen')
 const sendEmail=require('../utils/emailSender')
 const Otp=require('../models/OtpModel')
 const User=require('../models/UsersModel')
-
+const {hashPassword}=require('../utils/passWordHash')
 
 router.post('/login',limiter,login);
 
@@ -73,4 +73,16 @@ router.post('/generateotp',limiter, async (req,res)=>{
       
 });
 
+router.put('/passwordChange',userAuthticated, async (req,res,next)=>{
+  try
+    {const {password}=req.body
+    const enPass= await hashPassword(password)
+    const user= await User.findOneAndUpdate({email:req.user.email},{password:enPass})
+    res.json({success:true})
+  }
+  catch(err){
+    res.status(501).json({sucess:false})
+  }
+    
+})
 module.exports = router;

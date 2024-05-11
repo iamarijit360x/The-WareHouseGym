@@ -5,8 +5,12 @@ import axios from 'axios';
 import { setAuthState, setUserData } from '../utils/store/AuthSlice';
 import Pricing from '../components/Pricing/Pricing';
 import { useLocation,useNavigate} from 'react-router-dom';
-
+import sadImg from '../assets/sad.png'
 import './styles.css'
+import ChangePassword from '../components/ChangePassword';
+import Menu from '../components/Menu';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
 function Dashboard() {
   const navigate=useNavigate();
   const userData=useSelector(state=>state.auth.userData)
@@ -129,7 +133,7 @@ function Dashboard() {
             }
             setTimeout(() => {
               setLoading(false);
-            }, 2000);
+            }, 1000);
     }     
       
     },[userData,k])
@@ -141,7 +145,7 @@ function Dashboard() {
      {loading?
         <Row>
         <div className=" d-flex justify-content-center flex-wrap gap-5" > 
-               <Spinner animation="grow" variant="primary" />
+              <Spinner animation="grow" variant="primary" />
               <Spinner animation="grow" variant="secondary" />
               <Spinner animation="grow" variant="success" />
               <Spinner animation="grow" variant="danger" />
@@ -150,79 +154,90 @@ function Dashboard() {
         </div>
         </Row>
       : 
-      <Row >
-        <p className='text-center display-4 '>Welcome Back <span className="fw-bolder">{userData.firstname}</span></p>
-        <Col className='membership-card'>
+      <>
+         
+      
+          <Row>
 
-        <div  className=' membership-container rounded border d-flex p-4 flex-column justify-content-center  mx-auto'>
-        { newUser ?
+          <p className=' text-center display-5 p-0'>Welcome Back <span className="fw-bolder">{userData.firstname}</span></p>
+          <div className='d-flex justify-content-center border-black'></div>
+          <Col className='membership-card'>
 
-          <div>
-            <p className='text-center fs-3'>Hey {userData.firstname} Looks Like You Don't have a Mermbership</p>
-            <p className='text-center fs-5'>Let's Get One</p>
-            <div className='text-center'> <Button onClick={()=>navigate('/pricing1')}>Buy a Membership</Button> </div>
-          </div>
-      :
-              <div>
-                <p className='text-center fs-3'>MemberShip Details</p>
-                <div className='fs-4'>
-                  <p className='text-center'>Srt Date: {info.startDate.toDateString()}</p>
-                  <p className='text-center'>Exp Date: {info.expiryDate.toDateString()}</p>
+            <div className='p-4 membership-container rounded border d-flex flex-column justify-content-center'>
+            <span><Menu/></span>
+              {newUser ?
+
+                <div>
+                  <p className='text-center fs-3'>Hey {userData.firstname} Looks Like You Don't have a Mermbership</p>
+
+                  <p className='text-center fs-5'>Let's Get One</p>
+
+                  <p className='text-center'>.</p>
+                  <p className='text-center'>.</p>
+                  <p className='text-center fs-4'>.</p>
+                  <p className=' text-center fs-4'>.</p>
+                  <p className='text-danger'>.</p>
+                  <p className='text-center'>.</p>
+
+                  <div className='text-center'> <Button onClick={() => navigate('/pricing1')}>Buy a Membership</Button> </div>
                 </div>
-                <p className='text-center fs-4'>Trademill Access:{info.trademil?"Yes":"No"}</p>
-                <p className=' text-center fs-4'>Personal Training:{info.personal_training?"Yes":"No"}</p>
-                
-                {expired?
-                  <div className='text-center'>  
-                    <p className='text-danger'>Expired</p>
-                    <p className=' text-center fs-4'>Pack Expired {info.expDays===0 ? "Today": `${info.expDays} Days ago`}</p>
-                    <Button onClick={()=>navigate('/pricing1')}>Buy a Membership</Button>
+                :
+                <div>
+                  <p className='text-center fs-3'>MemberShip Details</p>
+                  <div className='fs-4'>
+                    <p className='text-center'>Srt Date: {info.startDate.toDateString()}</p>
+                    <p className='text-center'>Exp Date: {info.expiryDate.toDateString()}</p>
                   </div>
-                  :
-                  userData.membership[k].status ?
-                    <><p className='text-success text-center'>Active</p>{/*<ProgressBar style={{ width: "15rem" }} max={100} now={percentage} />*/}
-                      {info.daysLeft <=10 ?
-                      
-                      <div className='text-center'>
-                        <p className='fs-4 text-center text-danger'>Days Remaining {info.daysLeft}</p>
-                        <Button className="text-center"onClick={()=>navigate('/pricing1')}>Buy Membership Now</Button>
-                      </div>
-                      :
-                      <div className='text-center'>
-                        <p className='fs-4 text-center text-warning'>Days Remaining {info.daysLeft}</p>
-                       
-                      </div>
+                  <p className='text-center fs-4'>Trademill Access:{info.trademil ? "Yes" : "No"}</p>
+                  <p className=' text-center fs-4'>Personal Training:{info.personal_training ? "Yes" : "No"}</p>
 
-                      }
+                  {expired ?
+                    <div className='text-center'>
+                      <p className='text-danger'>Expired</p>
+                      <p className=' text-center fs-4'>Pack Expired {info.expDays === 0 ? "Today" : `${info.expDays} Days ago`}</p>
+                      <Button onClick={() => navigate('/pricing1')}>Buy a Membership</Button>
+                    </div>
+                    :
+                    userData.membership[k].status ?
+                      <><p className='text-success text-center'>Active</p>{/*<ProgressBar style={{ width: "15rem" }} max={100} now={percentage} />*/}
+                        {info.daysLeft <= 10 ?
+
+                          <div className='text-center'>
+                            <p className='fs-4 text-center text-danger'>Days Remaining {info.daysLeft}</p>
+                            <Button className="text-center" onClick={() => navigate('/pricing1')}>Buy Membership Now</Button>
+                          </div>
+                          :
+                          <div className='text-center'>
+                            <p className='fs-4 text-center text-warning'>Days Remaining {info.daysLeft}</p>
+
+                          </div>}
                       </>
-                    : <><p className='text-warning text-center'>Upcoming</p>
+                      : <><p className='text-warning text-center'>Upcoming</p>
                         <p className='fs-4 text-center'>...</p>
-                      </>
-                    }
+                      </>}
 
                   {userData.membership.length > 1 &&
                     <div className='d-flex justify-content-center gap-5'>
                       <Button disabled={buttonPrevStatus} onClick={() => handleMemberhipPrevNav()}>{'<'}</Button>
                       <Button disabled={buttonStatus} onClick={() => handleMemberhipNav()}>{'>'}</Button>
-                    </div>
-                    
-                    }
-                
+                    </div>}
 
 
-              </div>
-              }
+
+                </div>}
             </div>
-           
+
+
+
+
+          </Col>
+          
+
+          
+
+        </Row></>}
         
-      
-      
-       </Col>
-
-     
-
-      
-      </Row>}
+                    
     </Container>
   );}
   catch{
