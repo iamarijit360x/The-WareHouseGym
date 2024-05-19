@@ -70,7 +70,7 @@ export default function Pricing2() {
 
 
                     {data.map(item=>(
-                    <Container fluid className="p-3">
+                    <Container fluid className="p-3" >
                         <Card bg='black' text='white'>
                         <Card.Body >
                             <Card.Title>{item.name} {item.type==='personal_training'?!personalTrainingButton&&<FontAwesomeIcon icon={faCheck} style={{ scale:"1.3",color: 'green' }}/>:

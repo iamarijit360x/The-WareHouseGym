@@ -44,7 +44,7 @@ export default function Checkout() {
     };
 
     return (
-        <Container fluid className="bg-dark text-light py-5">
+        <Container fluid className="bg-dark text-light py-5" style={{minHeight:"80vh",alignContent:"center"}}>
             <Row lg={12} className="justify-content-center align-items-center">
                 <Col lg={5}>
                     <div style={{fontFamily:"Consolas", border: "1px solid white", padding: "1rem", height: "max-content",backgroundColor:"black" }}>

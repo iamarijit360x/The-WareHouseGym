@@ -1,47 +1,60 @@
-.custom-card {
-    width: 250px;
-    margin: 20px;
-    border-radius: 10px;
-    border-color: rgb(255, 230, 4);
-    box-shadow: 1 4px 8px rgba(0, 234, 125, 0.1);
-  }
-  .pricing-container{
-    background:linear-gradient(45deg,rgb(104, 4, 4),black);
-    min-height:100vh;
-  }
-  .custom-card .card-img-top {
-    height: 200px;
-    object-fit: cover;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-  }
-  
-  .custom-card .card-body {
-    padding: 20px;
-  }
-  
-  .custom-card .card-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .custom-card .card-text {
-    font-size: 1rem;
-    margin-bottom: 8px;
-  }
-  
-  .custom-card .card-subtitle {
-    font-size: 0.9rem;
-    color: #6c757d;
-  }
-  
-  .custom-card .btn {
-    width: 100%;
-    margin-top: 15px;
-  }
-  
-  .btn-primary{
-    background-color: black;
-    color: aqua;
-  }
+/* Pricing.css */
+.pricing-container {
+  background-color: #1b1b1b;
+  color: #ffffff;
+}
+
+.tile {
+  border: 1px solid #444;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  text-align: center;
+  padding: 0;
+}
+
+.pt-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.pti-header {
+  padding: 20px;
+  color: #fff;
+}
+
+.pti-header h2 {
+  margin: 0;
+}
+
+.pti-body {
+  padding: 20px;
+  flex-grow: 1;
+}
+
+.ptib-item {
+  margin-bottom: 10px;
+}
+
+.pti-footer {
+  padding: 10px;
+  background-color: #333;
+}
+
+.pti-footer .btn {
+  color: #fff;
+  border: none;
+}
+
+.bg-amber {
+  background-color: #FFC107;
+}
+
+.bg-green {
+  background-color: #4CAF50;
+}
+
+.bg-cyan {
+  background-color: #00BCD4;
+}

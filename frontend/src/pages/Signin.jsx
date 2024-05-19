@@ -66,13 +66,13 @@ function SignInPage() {
                   </InputGroup>
                 </Form.Group>
                 <Button disabled={loginDisabled}  variant="primary" size='md' type="submit" className="w-100 mb-2">
-                  Login
+                 {loading?<Spinner size="sm" animation="border" variant="info" />:"Login"}
                 </Button>
               </Form>
               <hr className="my-3" />
-              {loading || false  && <div > <p className="text-warning mb-4 text-center">This Website Deployed on a free instance will spin down with inactivity, which can delay requests by 50 seconds or more.</p>
+              {loading && <div > <p className="text-warning mb-4 text-center">This Website Deployed on a free instance will spin down with inactivity, which can delay requests by 50 seconds or more.</p>
                           <p p className="fw-bold text-warning mb-4 text-center">Please Wait😊</p>
-                          <div className='text-center pb-2'><Spinner animation="border" variant="info" /></div>
+                          <div className='text-center pb-2'></div>
               </div>}
               {error  && <p className="text-danger mb-4 fw-bold text-center">{error.response.data.message}</p>}
               
