@@ -46,13 +46,13 @@ const PricingCard = ({ packageData }) => {
   return (
     <Col  lg={3}>
       <div className="tile pt-inner">
-        <div className={`pti-header ${packageData.bgClass}`}>
+        <div className='bg-black p-2'>
           <h2>₹{packageData.price} </h2>
           <p className="fs-4 fw-bold"> {packageData.name}</p>
         </div>
         <p className="pti-body fs-5">{packageData.description}</p>
         <div className="pti-footer">
-          <Button size='lg' onClick={() => navigate('/pricing2', { state: { item: packageData } })}>Buy Now</Button>
+          <Button className='buttons' size='lg' onClick={() => navigate('/pricing2', { state: { item: packageData } })}>Buy Now</Button>
         </div>
       </div>
     </Col>

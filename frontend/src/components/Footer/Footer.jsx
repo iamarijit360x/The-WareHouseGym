@@ -6,7 +6,7 @@ import './Footer.css';
 
 export default function Footer() {
     return (
-        <footer className="footer">
+        <footer className="footer" id="contact">
             <Container fluid>
                 <Row>
                     <Col xs={12} md={4} lg={4} className="footer-logo d-flex flex-column align-items-center justify-content-center" >
