@@ -22,7 +22,8 @@ const userSchema = new mongoose.Schema({
     memberShipStatus: Boolean,
     OrderHistory:[membershipSchema],
     verified:Boolean,
-    OTP:Number
+    OTP:Number,
+    role:{default:"user",type:String}
 });
 
 const UserModel=mongoose.model("User",userSchema)

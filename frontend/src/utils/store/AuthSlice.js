@@ -25,7 +25,8 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     authState: false,
-    userData: {}
+    userData: {},
+    isAdmin:false
     },
   reducers: {
     setAuthState: (state, action) => {
@@ -34,11 +35,14 @@ const authSlice = createSlice({
     setUserData:(state,action)=>{
       state.userData=action.payload
     },
+    setAdmin:(state,action)=>{
+      state.isAdmin=action.payload
+    }
 
   },
 });
 
-export const { setAuthState,setUserData } = authSlice.actions;
+export const { setAuthState,setUserData,setAdmin } = authSlice.actions;
 
 export default authSlice.reducer;
 

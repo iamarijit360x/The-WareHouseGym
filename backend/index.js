@@ -6,6 +6,7 @@ const passport = require('passport');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/authRoutes');
+const adminRoutes=require('./routes/adminRoutes')
 //const MongoStore = require('connect-mongo');
 app.enable('trust proxy');
 
@@ -41,6 +42,7 @@ app.use(passport.session());
 
 // Routes
 app.use(authRoutes);
+app.use(adminRoutes)
 
 // Start server
 const PORT = process.env.PORT || 3000;

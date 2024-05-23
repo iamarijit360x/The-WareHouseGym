@@ -23,3 +23,12 @@ exports.verifyOtp= async (req,res,next)=>{
         return res.status(500).json({ success: false, message: 'Internal Server Error' });
     }
 }
+exports.isAdmin=function(req,res,next){
+    if(req.user.role==='admin')
+        next()
+
+    else
+        return res.status(403).json({ message: 'Forbidden: Admins only' }); // User is not an admin
+
+    
+}

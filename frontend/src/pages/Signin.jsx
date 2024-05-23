@@ -3,7 +3,7 @@ import { Container, Row, Col, Card, Form, Button, InputGroup } from 'react-boots
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom'; 
 import { useDispatch } from 'react-redux';
-import { setAuthState, setUserData } from '../utils/store/AuthSlice';
+import { setAuthState, setAdmin } from '../utils/store/AuthSlice';
 import Spinner from 'react-bootstrap/Spinner';
 import './styles.css'
 import logo from "../assets/gymlogo.png";
@@ -24,12 +24,18 @@ function SignInPage() {
     try {
       setLoading(true);
       const response = await axios.post(import.meta.env.VITE_BACKEND_URL+'/login', { email, password },{ withCredentials: true });
-      
       if (response.data.success) {
         setLoading(false)
         dispatch(setAuthState(true));
-        setTimeout(()=>{navigate('/dashboard')},4000)
-        //navigate('/dashboard');
+        
+        if(response.data.user.role==='admin')
+         {  
+           dispatch(setAdmin(true))
+           navigate('/admin/dashboard')
+         }
+        else{
+          setTimeout(()=>{navigate('/dashboard')},3000)}
+        
       }
     } catch (error) {
       console.error(error.response.data);

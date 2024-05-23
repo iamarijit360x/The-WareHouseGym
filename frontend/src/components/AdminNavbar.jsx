@@ -7,7 +7,7 @@ import { setAdmin, setAuthState, setUserData } from '../utils/store/AuthSlice';
 import axios from 'axios';
 import './Navbar.css'
 
-export default function MyNavbar() {
+export default function AdminNavbar() {
   const authState = useSelector(state => state.auth.authState);
   const name = useSelector(state => state.auth.userData.firstname);
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ export default function MyNavbar() {
   return (
     <Navbar style={{ padding: 0 }} sticky="top" bg="black" className="px-4" expand="sm" data-bs-theme="dark" position-fixed>
       <Container>
-        <Navbar.Brand  style={{cursor:"pointer"}}onClick={()=>navigate('/')} className="d-flex align-items-center">
+        <Navbar.Brand  style={{cursor:"pointer"}}onClick={()=>navigate('/admin/dashboard')} className="d-flex align-items-center">
           <img
             alt=""
             src={logo}
@@ -46,10 +46,8 @@ export default function MyNavbar() {
 
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="flex-grow-1 justify-content-around">
-            <Nav.Link onClick={()=>navigate('/pricing1')} className='text-white' ><span className='test'>Pricing</span></Nav.Link>
-            <Nav.Link onClick={()=>navigate('/', { state: {scrolldown:true} })} className='text-white '><span className='test'>Contact Us</span> </Nav.Link>
 
-            {authState ? <Nav.Link onClick={()=>navigate('/dashboard')} className='text-white'><span style={{ fontWeight: 'bold' }}>{name}</span><i class="fa-regular fa-user"></i></Nav.Link> : null}
+            {authState ? <Nav.Link onClick={()=>navigate('/admin/dashboard')} className='text-white'><span style={{ fontWeight: 'bold' }}>{name}</span><i class="fa-regular fa-user"></i></Nav.Link> : null}
             {authState ? <Nav.Link onClick={() => handleLogout()} className='text-white'>Sign Out</Nav.Link> : <Nav.Link onClick={()=>navigate('/signin')} className='text-warning'><span style={{ fontWeight: 'bold' }}>Sign In</span></Nav.Link>}
           </Nav>
         </Navbar.Collapse>
