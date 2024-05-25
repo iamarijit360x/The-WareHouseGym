@@ -58,9 +58,11 @@ exports.buyMembership=async (req,res)=>{
             {
                 newMembership.status=true;
             }
+            const newOrder=new Membership({userId:userId,purchaseDate:new Date(),personal_training:personal_training,trademil:trademil,duration:data.duration})
             // Push the new membership object to the user's membership array
             user.membership.push(newMembership);
             user.OrderHistory.push(newMembership)
+            await newOrder.save()
             // Save the updated user
             return await user.save();
         })

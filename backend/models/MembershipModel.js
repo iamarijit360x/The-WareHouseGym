@@ -4,9 +4,11 @@ const mongoose=require('mongoose');
 const membershipSchema=new mongoose.Schema({
     userId:String,
     productId:String,
-    purchaseDate:Date,
-    startDate:Date,
-    expiryDate:Date
+    duration:Number,
+    personal_training:Boolean,
+    trademil:Boolean
+    
+    
 })
 
 const MembershipModel=mongoose.model("Membership",membershipSchema)

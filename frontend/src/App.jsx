@@ -29,7 +29,7 @@ const isAdmin=useSelector(state=>state.auth.isAdmin)
       <ScrollToTop/>
         <Routes>
         <Route path='/dashboard' element={authState ? <Navigate to="/admin/dashboard" /> : <SignInPage />} />
-
+        <Route path='/' element={authState ? <Navigate to="/admin/dashboard" /> : <SignInPage />} />
         <Route path='/admin/dashboard' element={authState?<AdminDashboard/>: <Navigate to="/signin" />} />
         <Route path='/signin' element={authState ? <Navigate to="/dashboard" /> : <SignInPage />} />
         </Routes>

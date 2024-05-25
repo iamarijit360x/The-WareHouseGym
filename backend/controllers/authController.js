@@ -6,20 +6,10 @@ const {generateOTP}=require('../utils/randomGen')
 exports.signup=async (req,res)=>{
     const {firstname,lastname,email,password}=req.body
    try{ 
-     
-        
-
-
-
         const enPass=await hashPassword(password);
         const newUser=new User({firstname:firstname,lastname:lastname,email:email,password:enPass})
-
-
-
         await newUser.save();
         return res.json({"success":true})
-        
-    
         }
     catch (error) {
         console.error("Error occurred during signup:", error);
