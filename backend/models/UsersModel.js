@@ -23,7 +23,8 @@ const userSchema = new mongoose.Schema({
     OrderHistory:[membershipSchema],
     verified:Boolean,
     OTP:Number,
-    role:{default:"user",type:String}
+    role:{default:"user",type:String},
+    reminderSentOn:{type:Date}
 });
 
 const UserModel=mongoose.model("User",userSchema)

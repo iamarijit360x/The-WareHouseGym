@@ -22,7 +22,6 @@ exports.buyMembership=async (req,res)=>{
         
         
     const userId=req.user.id
-    console.log(data,personal_training,trademil)
     User.findById(userId)
         .then(async user => {
             if (!user) {

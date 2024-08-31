@@ -18,9 +18,7 @@ export default function Checkout() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log(products)
             const response = await axios.post(import.meta.env.VITE_BACKEND_URL+'/buy', products, { withCredentials: true });
-            console.log(response)
             if(response.data.success)
            { 
                 axios.get(import.meta.env.VITE_BACKEND_URL+"/profile", { withCredentials: true })

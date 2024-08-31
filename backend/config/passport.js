@@ -12,12 +12,10 @@ passport.use(new LocalStrategy({usernameField:"email"},
       const user =  await User.findOne({email:email});
      
       if (!user) {
-        console.log('Invalid usernmae')
 
         return done(null, false, { message: 'Incorrect username.' });
       }
       if (!(await verifyPassword(password,user.password))) {
-        console.log('Invalid passoword')
 
         return done(null, false, { message: 'Incorrect password.' });
       }

@@ -3,14 +3,13 @@ require('dotenv').config();
 
 
 const transporter = nodemailer.createTransport({
-  service: 'hotmail',
+  service: 'gmail',
   auth: {
     user:  process.env.EMAIL,
-    pass: process.env.EMAIL_PASS
+    pass: process.env.EMAIL_PASSWORD
   }
 });
 
-//console.log( process.env.EMAIL)
 function sendEmail(mailOptions) {
   return new Promise((resolve, reject) => {
     transporter.sendMail(mailOptions, (error, info) => {
@@ -18,7 +17,6 @@ function sendEmail(mailOptions) {
         console.error('Error sending email:', error);
         reject(error);
       } else {
-        console.log('Email sent:', info.response);
         resolve(info.response);
       }
     });

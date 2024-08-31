@@ -22,7 +22,6 @@ exports.limiterOTP = rateLimit({
       const resetTime = (req.rateLimit.resetTime - Date.now()) / 1000; // Convert milliseconds to seconds
       const remainingTime = Math.ceil(resetTime); 
       await Otp.findOneAndDelete({ email: req.body.email });
-      console.log("OTP DELETED FOR", req.body.email);
       return res.status(429).json({ message: "Too Many Attempts Please Try Again Later", loginDisabled: true, remainingTime: remainingTime });
     } catch (error) {
       console.error('Error in limiterOTP handler:', error);

@@ -48,7 +48,6 @@ export default function SignUp1() {
         setEmailStatus(false)
         setLoading(false)
         if(error.response.data.otp){
-            console.log("OTP",error.response.data.otp)
             setOtp(error.response.data.otp)
             setButton(true)
         }

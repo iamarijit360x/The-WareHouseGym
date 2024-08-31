@@ -7,7 +7,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/authRoutes');
 const adminRoutes=require('./routes/adminRoutes')
-//const MongoStore = require('connect-mongo');
+const userRoutes=require('./routes/userRoutes')
 app.enable('trust proxy');
 
 
@@ -25,7 +25,11 @@ app.use(express.json());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-
+// IMPORTANT ALWAYS SET cookie:{
+//          httpOnly:true,
+//          sameSite:"none",
+//          secure:true
+//     }
 app.use(session({
     secret: process.env.SECRET_KEY,
     resave: false,
@@ -43,7 +47,7 @@ app.use(passport.session());
 // Routes
 app.use(authRoutes);
 app.use(adminRoutes)
-
+app.use(userRoutes)
 // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
