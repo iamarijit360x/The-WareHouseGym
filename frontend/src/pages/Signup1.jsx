@@ -76,17 +76,21 @@ export default function SignUp1() {
                             <p className='text-center fs-4 fw-bold p-0'>Welcome to The Warehouse Gym</p>
                             <p className="text-center info-signup">To create a account fill in your email below and we"ll send you an email with a OTP to get you started </p>
                            
-                            <Form.Group className="mb-3" controlId="confirmPassword">
-                                <Form.Label>Email Address</Form.Label>
-                                <Form.Control
-                                    type="email"
-                                    placeholder="Email"
-                                    value={email}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </Form.Group>
-                            <div className='text-center p-4'>
+                            <Form.Group className="mb-3" controlId="email">
+                            <Form.Label>Email Address</Form.Label>
+                            <Form.Control
+                                type="email"
+                                placeholder="Email"
+                                value={email}
+                                onChange={handleChange}
+                                required
+                                isInvalid={!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email) && email !== ''}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                Please enter a valid email address.
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                                                    <div className='text-center p-4'>
                                 <Button  variant="info" disabled={disable}  type="submit" className="w-20">
                                     <p className="fw-bolder p-0 m-0">Send OTP</p>
                                 </Button>

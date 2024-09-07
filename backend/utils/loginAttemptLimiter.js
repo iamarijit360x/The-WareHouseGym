@@ -2,7 +2,7 @@ const rateLimit = require('express-rate-limit');
 const Otp=require('../models/OtpModel')
 exports.limiter = rateLimit({
   windowMs: 15 * 60 * 1000, 
-  max: 5,
+  max: 10,
   handler:(req,res,err)=>{
     const resetTime = (req.rateLimit.resetTime - Date.now()) / 1000; // Convert milliseconds to seconds
     const remainingTime = Math.ceil(resetTime); 

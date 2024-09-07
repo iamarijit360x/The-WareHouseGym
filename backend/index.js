@@ -15,7 +15,6 @@ require('dotenv').config();
 
 // Configure mongoose
 mongoose.connect(process.env.DB_URL);
-
 // Configure passport
 require('./config/passport');
 
@@ -25,20 +24,18 @@ app.use(express.json());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-// IMPORTANT ALWAYS SET cookie:{
-//          httpOnly:true,
-//          sameSite:"none",
-//          secure:true
-//     }
+
+const cookie= {httpOnly:true}
+if(process.env.COOKIE_SECURE)
+{
+    cookie.sameSite='none'
+    cookie.secure=true
+}
 app.use(session({
     secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: false,
-    cookie:{
-        httpOnly:true,
-        sameSite:"none",
-        secure:true
-    }
+    cookie
 }));
 
 app.use(passport.initialize());
